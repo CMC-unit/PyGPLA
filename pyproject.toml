@@ -1,0 +1,49 @@
+[build-system]
+requires = ["hatchling>=1.21"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pygpla"
+version = "0.0.1"
+description = "Generalized Phase Locking Analysis (GPLA) toolkit in Python."
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "Proprietary"}
+authors = [{name = "PyGPLA Developers"}]
+dependencies = [
+  "numpy>=1.21",
+]
+dynamic = ["classifiers"]
+
+[project.optional-dependencies]
+docs = [
+  "mkdocs>=1.5",
+  "mkdocs-material>=9.0",
+]
+tests = [
+  "pytest>=7.0",
+  "numpy>=1.21",
+]
+sim = [
+  "scipy>=1.9",
+]
+
+[project.urls]
+Repository = "https://example.com/pygpla"
+Documentation = "https://example.com/pygpla/docs"
+
+[tool.hatch.version]
+path = "src/pygpla/_version.py"
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 99
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
