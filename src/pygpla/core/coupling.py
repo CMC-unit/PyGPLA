@@ -6,8 +6,6 @@ from typing import Optional, Tuple
 
 import numpy as np
 
-from ..stats.jitter import interval_jitter
-
 __all__ = ["compute_coupling_matrix"]
 
 
@@ -33,8 +31,6 @@ def _normalization_factors(spike_counts: np.ndarray, method: str) -> np.ndarray:
         nf = np.power(spike_counts, -1.0)
     elif method in ("nSpk-square-root", "var1_theoretical"):
         nf = np.power(spike_counts, -0.5)
-    elif method == "var1_empirical":
-        raise NotImplementedError("'var1_empirical' normalization is not implemented.")
     else:
         raise ValueError(f"Unsupported normalization method: {method}")
 
@@ -92,6 +88,9 @@ def compute_coupling_matrix(
     coupling_matrix = (nf[np.newaxis, :] * np.abs(coupling_raw)) * np.exp(1j * np.angle(coupling_raw))
 
     if same_electrode_info is not None:
+        # Lazy import to avoid circular dependency during module import time
+        from ..stats.jitter import interval_jitter
+
         jitter_window = float(same_electrode_info.get("jitterWinWidth", 0.05))
         sampling_rate = float(same_electrode_info.get("spkSF", 1.0))
         table = same_electrode_info.get("spkU_lfpCh_cnvrtTabel", None)
