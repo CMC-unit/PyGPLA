@@ -354,9 +354,9 @@ def main():
     plt.tight_layout()
     plt.subplots_adjust(top=0.9, bottom=0.08)
 
-    reports_dir = ROOT / "reports"
-    reports_dir.mkdir(parents=True, exist_ok=True)
-    outpath = reports_dir / "figure2_python.png"
+    figures_dir = Path(__file__).resolve().parent
+    figures_dir.mkdir(parents=True, exist_ok=True)
+    outpath = figures_dir / "figure2_python.png"
     plt.savefig(outpath, dpi=300, bbox_inches="tight")
     print(f"Saved figure: {outpath}")
 
