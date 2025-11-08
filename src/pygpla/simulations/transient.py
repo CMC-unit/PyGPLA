@@ -76,7 +76,7 @@ def simulate_transient_locked(
     rng: Optional[np.random.Generator] = None,
 ) -> Tuple[np.ndarray, np.ndarray, List[np.ndarray], Dict]:
     """
-    Simulate transiently phase-locked spikes and LFP, matching the PyGPLA_dev behavior.
+    Simulate transiently phase-locked spikes and LFP.
     """
 
     if rng is None:
