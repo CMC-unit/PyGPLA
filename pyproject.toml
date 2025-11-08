@@ -29,8 +29,8 @@ sim = [
 ]
 
 [project.urls]
-Repository = "https://example.com/pygpla"
-Documentation = "https://example.com/pygpla/docs"
+Repository = "https://github.com/CMC-lab/PyGPLA"
+Documentation = "https://github.com/CMC-lab/PyGPLA#readme"
 
 [tool.hatch.version]
 path = "src/pygpla/_version.py"
