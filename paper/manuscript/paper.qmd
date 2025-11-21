@@ -1,0 +1,82 @@
+---
+title: "PyGPLA: Generalized Phase Locking Analysis in Python"
+author:
+  - name: "Amir Khani"
+    affiliation: "Amirkabir University of Technology"
+  - name: "Shervin Safavi"
+    affiliation: "TU Dursden"
+format:
+  pdf:
+    documentclass: article
+  html:
+    theme: default
+lang: en
+---
+
+## Abstract
+
+Concise motivation, methods, results, and conclusions in one paragraph. Keep under ~200 words.
+
+## Summary
+
+Briefly explain why multichannel spike–field coupling is hard to interpret and how GPLA provides a dominant-coupling summary (gPLV, LFP/spike vectors) with statistical guarantees.
+
+## Statement of need
+
+- Why existing pairwise PLV/phase metrics are insufficient for large-channel recordings.
+- Gap: accessible, Python-native GPLA with stats, whitening, and simulations.
+- Who benefits: systems neuroscience labs analyzing LFP + spikes at scale.
+
+## Package overview
+
+- High-level API: `pygpla.api.gpla` returning gPLV, vectors, stats.
+- Core math: coupling matrix + SVD factorization.
+- Statistics: RMT analytic test and spike-jitter surrogates.
+- Preprocessing: whitening, normalization, same-electrode correction.
+- Simulations: phase-locked and transient coupling generators.
+
+## Methods
+
+### Data model and preprocessing
+
+Describe spike trains (units × samples × trials) and analytic LFPs (channels × samples × trials), unit selection, whitening options, and normalization. Note thresholds for spike counts and same-electrode handling.
+
+### Coupling matrix and GPLA decomposition
+
+Define the complex coupling matrix \(C\), computed from analytic LFPs and spike trains, and its SVD:
+
+$$
+C = U \Sigma V^{\mathsf{H}}, \quad \text{gPLV} = \sigma_1.
+$$
+
+Describe column normalization, phase rotation (set mean LFP phase to zero), and optional unwhitening.
+
+### Statistical testing
+
+Explain the RMT-based analytical test (Marchenko–Pastur bound on \(\sigma_1^2\)) and surrogate assessments using spike-jitter variants. Include parameters: number of surrogates, jitter window, alpha, jitter type.
+
+### Simulations and datasets
+
+List synthetic datasets (von Mises phase-locked spikes, transient locking) and any real recordings (e.g., Utah array). Document parameter ranges, sampling rates, preprocessing filters, and seeds.
+
+## Results
+
+Summaries for figures/tables once added: simulation benchmarks (detection power/Type I error), robustness to dimensionality, and a real-data case study highlighting LFP/spike vector interpretation.
+
+## Usage
+
+- Installation: `pip install .[sim,docs]` (or editable mode during development).
+- Minimal example: load/generate data → call `gpla` → inspect gPLV, vectors, stats.
+- Reproducing figures: list script names, commands, and seeds.
+
+## Availability
+
+Repository URL, version tag, license, and issue tracker. Note dependencies (NumPy, SciPy for sims, pytest for tests, Quarto for this manuscript).
+
+## Acknowledgments
+
+Funding, collaborators, datasets.
+
+## References
+
+Add a `references.bib` alongside this file; cite inline, e.g., [@safavi2023gpla], and Quarto will format automatically.
