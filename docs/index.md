@@ -1,10 +1,13 @@
-# PyGPLA Documentation (Work in Progress)
+# PyGPLA Documentation
 
-This documentation site will cover:
+Generalized Phase Locking Analysis (GPLA) for multichannel spike–field coupling in Python.
 
-- Installation instructions
-- GPLA quickstart guide
-- Detailed API reference
-- Tutorials that mirror the MATLAB workflow
+```{toctree}
+:maxdepth: 2
+:caption: Contents
 
-The content will be generated once the modules are migrated and stabilized.
+overview
+usage
+guides/index
+api
+```
