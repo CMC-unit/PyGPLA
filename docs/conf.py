@@ -26,9 +26,12 @@ extensions = [
     "sphinx.ext.napoleon",
     "sphinx.ext.intersphinx",
     "sphinx.ext.mathjax",
+    "sphinx.ext.viewcode",
 ]
 
 autosummary_generate = True
+autosummary_imported_members = False
+autodoc_member_order = "bysource"
 autodoc_default_options = {
     "members": True,
     "undoc-members": False,
@@ -59,3 +62,9 @@ myst_heading_anchors = 3
 
 html_theme = "sphinx_rtd_theme"
 html_static_path = ["_static"]
+
+# Optional: tweak napoleon parsing of Google/Numpy docstrings
+napoleon_google_docstring = True
+napoleon_numpy_docstring = True
+napoleon_use_param = True
+napoleon_use_rtype = True
