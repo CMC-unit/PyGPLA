@@ -46,20 +46,22 @@ def compute_coupling_matrix(
     same_electrode_info: Optional[dict] = None,
 ) -> Tuple[np.ndarray, np.ndarray]:
     """
-    Compute the complex coupling matrix between LFP phases and spike trains.
+    Build the complex coupling matrix between analytic LFP and spike trains.
 
     Parameters
     ----------
     spike_trains:
-        Array of shape (units, time) with binary/spike counts.
+        Array of shape (units, samples) with binary or count spikes.
     lfp_signal:
-        Complex analytic LFP representation of shape (channels, time).
+        Real or complex LFP array of shape (channels, samples). Real inputs are wrapped
+        to unit-magnitude complex exponentials; complex inputs preserve amplitude.
     normalization_method:
-        One of ``{"nSpk", "nSpk-square-root", "var1_theoretical"}``.
+        One of ``{"nSpk", "nSpk-square-root", "var1_theoretical"}`` controlling spike-count
+        scaling in the coupling matrix.
     same_electrode_info:
-        Optional dict containing same-electrode correction metadata. If present and
-        includes ``spkU_lfpCh_cnvrtTabel`` the affected entries are replaced by coupling
-        values obtained from interval-jittered spikes.
+        Optional dict for same-electrode correction. If it includes
+        ``spkU_lfpCh_cnvrtTabel``, those entries are replaced by coupling values computed
+        from interval-jittered spikes.
 
     Returns
     -------
