@@ -54,7 +54,43 @@ def gpla(
     preprocessing_config: PreprocessingConfig | None = None,
 ) -> GPLAResult:
     """
-    Port of `tngpla` high-level wrapper orchestrating preprocessing, GPLA core, and stats.
+    High-level GPLA wrapper: preprocessing → GPLA core → statistical testing.
+
+    Parameters
+    ----------
+    spike_trains :
+        List of spike arrays shaped (units, samples) per trial.
+    lfp_signal :
+        Complex analytic LFP array shaped (channels, samples, trials).
+    flag_gPLVnrmlz :
+        Legacy gPLV normalization flag (0 keep raw, nonzero scales by matrix size).
+    nSpikeThreshold :
+        Minimum total spikes per unit to retain; None disables thresholding.
+    unitSubset :
+        Optional iterable of unit indices (0-based) to include.
+    temporalWindow :
+        Either (start, stop) indices or list of per-trial index arrays.
+    flag_origDimEigVec :
+        If set, spike vectors are expanded back to original unit dimension (NaN fill).
+    stats_config :
+        Dict or `StatTestConfig` specifying "RMT-based" or "spike-jittering" options.
+    iSV :
+        Singular value index (1-based) to analyze.
+    sameElecCheckInfo_r :
+        Optional same-electrode mapping for coupling correction.
+    plvNrmlzMethed :
+        Coupling normalization method ("nSpk", "nSpk-square-root", "var1_theoretical").
+    flag_whitening :
+        Whitening method flag (0 off, 1/2 PCA variants).
+    flag_lfpNrmlz :
+        Normalize analytic LFP amplitude if set.
+    preprocessing_config :
+        Optional `PreprocessingConfig` to override legacy flags in a structured way.
+
+    Returns
+    -------
+    GPLAResult
+        Dataclass with LFP/spike vectors, gPLV, p-value, stats dict/NaN, and metadata.
     """
 
     spike_list = [np.asarray(st) for st in spike_trains]
