@@ -46,11 +46,39 @@ def run_gpla_core(
     unwhiten_operator: np.ndarray | None = None,
 ) -> Tuple[np.ndarray, np.ndarray, float, complex, np.ndarray, np.ndarray]:
     """
-    Compute the core GPLA decomposition (coupling matrix, SVD, phase rotations).
+    Compute the core GPLA decomposition: coupling matrix → SVD → phase-rotated vectors.
+
+    Parameters
+    ----------
+    spike_trains :
+        Array of shape (units, samples) containing binary or count spike trains.
+    lfp_phases :
+        Complex analytic LFP array of shape (channels, samples).
+    normalize_gplv :
+        If nonzero, scale gPLV by (n_channels * n_units)^-0.5 (legacy MATLAB option).
+    sv_index :
+        Singular value(s) to return (1-based int, iterable of ints, or "all").
+    same_electrode_info :
+        Optional dict mapping spike units to LFP channels for same-electrode correction.
+    normalization_method :
+        Normalization for coupling matrix: {"nSpk", "nSpk-square-root", "var1_theoretical"}.
+    unwhiten_operator :
+        Optional unwhitening matrix applied to LFP singular vectors before normalization.
 
     Returns
     -------
-    lfp_vectors, spike_vectors, gplv, complex_gplv, coupling_matrix, singular_values
+    lfp_vectors : np.ndarray
+        Complex array (channels, n_components) of phase-rotated LFP singular vectors.
+    spike_vectors : np.ndarray
+        Complex array (units, n_components) of phase-rotated spike singular vectors.
+    gplv : float
+        Dominant singular value (optionally normalized).
+    complex_gplv : complex
+        Complex-valued gPLV carrying phase from the last selected component.
+    coupling_matrix : np.ndarray
+        Complex coupling matrix of shape (channels, units).
+    singular_values : np.ndarray
+        Singular values from the SVD (1D array).
     """
 
     coupling_matrix, spike_counts = compute_coupling_matrix(
