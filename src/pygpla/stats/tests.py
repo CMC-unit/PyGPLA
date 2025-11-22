@@ -39,7 +39,44 @@ def run_statistical_test(
     Any,
 ]:
     """
-    Port of `tnstataliz_gPLV` from PyGPLA_dev providing statistical testing around GPLA.
+    Run GPLA core and wrap significance testing (RMT heuristic or spike jittering).
+
+    Parameters
+    ----------
+    spike_trains :
+        Array (units, samples) of spikes.
+    lfp_signal :
+        Complex analytic LFP array (channels, samples).
+    stat_test_info :
+        None for no stats; dict with keys such as ``testType`` ("RMT-based" or
+        "spike-jittering"), ``nJtr``, ``alphaValue``, ``jitterType``, etc.
+    sv_index :
+        Singular value index (1-based) to examine.
+    same_electrode_info :
+        Optional same-electrode correction metadata (passed to GPLA core).
+    normalization_method :
+        Coupling normalization ("nSpk", "nSpk-square-root", "var1_theoretical").
+    unwhiten_operator :
+        Optional unwhitening matrix applied to LFP vectors.
+    flag_gplv_normalization :
+        Legacy gPLV normalization flag; passed through.
+
+    Returns
+    -------
+    gplv : float
+        Dominant singular value.
+    p_value : float
+        NaN if no stats; p-value from jitter or placeholder for RMT.
+    lfp_vec, spk_vec : np.ndarray
+        Phase-rotated singular vectors (columns correspond to components).
+    coupling_matrix : np.ndarray
+        Complex coupling matrix.
+    singular_values : np.ndarray
+        Singular values from GPLA core.
+    null_reject : bool
+        Whether null was rejected (if stats were run).
+    gplv_stats, plv_stats, sv_stats :
+        Dicts containing test statistics/null distributions, or NaN if not computed.
     """
 
     (
