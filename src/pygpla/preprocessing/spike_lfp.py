@@ -81,6 +81,50 @@ def prepare_spike_lfp_data(
 ) -> Tuple[np.ndarray, np.ndarray, Dict[str, int], np.ndarray, np.ndarray | None]:
     """
     Prepare spike trains and LFP phases by concatenating across trials, with optional whitening.
+
+    Parameters
+    ----------
+    spikeTrains_raw :
+        List of spike arrays, each shaped (units, samples) per trial.
+    lfpPhases_input :
+        Complex LFP array shaped (channels, samples, trials).
+    flag_gPLVnrmlz :
+        Legacy normalization flag (passed through for compatibility).
+    nSpikeThreshold :
+        Minimum total spikes per unit to retain; None disables thresholding.
+    unitSubset :
+        Optional iterable of unit indices to include (0-based).
+    temporalWindow :
+        Either (start, stop) indices or a list of per-trial index arrays.
+    flag_origDimEigVec :
+        If set, spike vectors are expanded back to original unit dimension (with NaN fill).
+    statTestInfo :
+        Optional stats config dict; passed through unmodified.
+    iSV :
+        Singular value index (1-based) used downstream.
+    checkSameElecStuff_flag :
+        Placeholder for MATLAB parity; unused here.
+    plvNrmlzMethed :
+        Normalization method for coupling ("nSpk", "nSpk-square-root", "var1_theoretical").
+    flag_whitening :
+        Whitening method flag (0 off, 1/2 PCA variants).
+    flag_lfpNrmlz :
+        If nonzero, normalize analytic LFP by channel-wise std after concatenation.
+    config :
+        Optional `PreprocessingConfig` to override legacy flags.
+
+    Returns
+    -------
+    spikeTrains_allTrLong : np.ndarray
+        Concatenated spike matrix (selected_units, samples * trials).
+    lfpPhases_allTrLong : np.ndarray
+        Concatenated LFP matrix (channels, samples * trials), optionally whitened/normalized.
+    n : dict
+        Dimensions dict: keys "LfpCh", "Sample", "SpkUnit", "Tr".
+    selectedUnits : np.ndarray
+        Indices of retained units relative to original input.
+    unwhitenOpr : np.ndarray | None
+        Unwhitening operator if whitening applied; else None.
     """
 
     (
