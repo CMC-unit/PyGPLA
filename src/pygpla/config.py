@@ -49,7 +49,12 @@ class StatTestConfig:
 
 
 def validate_spike_trains(spike_trains: Sequence[np.ndarray]) -> None:
-    """Basic structural checks for spike train inputs."""
+    """
+    Validate that spike trains share dimensions across trials.
+
+    Expects a non-empty sequence of 2D arrays shaped (units, samples); raises ValueError
+    if any trial has mismatched unit counts or wrong dimensionality.
+    """
 
     if not spike_trains:
         raise ValueError("At least one spike train trial must be provided.")
@@ -63,7 +68,12 @@ def validate_spike_trains(spike_trains: Sequence[np.ndarray]) -> None:
 
 
 def validate_lfp_signal(lfp_signal: ArrayLike) -> np.ndarray:
-    """Ensure LFP input can be treated as a complex analytic array."""
+    """
+    Ensure LFP input can be treated as a complex analytic array.
+
+    Requires a 3D array shaped (channels, samples, trials); raises ValueError otherwise.
+    Returns the array as np.ndarray for downstream use.
+    """
 
     arr = np.asarray(lfp_signal)
     if arr.ndim != 3:
