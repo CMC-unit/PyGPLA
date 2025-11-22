@@ -16,9 +16,19 @@ def factorize_coupling_matrix(
     """
     Perform SVD on the coupling matrix, handling NaNs consistently with MATLAB port.
 
+    Parameters
+    ----------
+    coupling_matrix :
+        Complex matrix of shape (channels, units).
+
     Returns
     -------
-    singular_lfp_vecs, singular_spike_vecs, singular_values
+    singular_lfp_vecs : np.ndarray
+        Left singular vectors (channels, k).
+    singular_spike_vecs : np.ndarray
+        Right singular vectors (units, k), NaN-padded when NaNs were present.
+    singular_values : np.ndarray
+        Singular values (length k), where k = min(channels, units) or valid columns.
     """
 
     M = np.asarray(coupling_matrix, dtype=complex)
