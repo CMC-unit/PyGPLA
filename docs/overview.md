@@ -27,3 +27,8 @@ The Python package mirrors the MATLAB workflow while adding clearer typing, prep
 - Multichannel spike + LFP recordings where pairwise PLV is hard to interpret.
 - Hypothesis testing for global coupling (RMT heuristic) or condition comparisons via surrogate tests.
 - Exploratory analysis of spatial phase structure (waves, gradients) across electrodes.
+
+## Requirements
+
+- Python ≥ 3.10 (dataclasses use `slots`), NumPy ≥ 1.21.
+- For docs: Sphinx + MyST (`pip install -e ".[docs]"`).

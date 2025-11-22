@@ -14,6 +14,11 @@ pip install -e .[sim,tests]
 pip install -e .[docs]
 ```
 
+## Requirements
+
+- Python ≥ 3.10 (needed for dataclasses with `slots`).
+- NumPy ≥ 1.21. Install extras as needed: `.[sim]` for simulations, `.[docs]` for docs.
+
 ## Data expectations
 
 - **Spike trains**: list of arrays shaped `(units, samples)` per trial, binary or counts.
