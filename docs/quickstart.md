@@ -1,13 +1,17 @@
+ (quickstart)=
 # Quickstart
 
-This page shows the smallest end-to-end GPLA run in PyGPLA:
+This page gets you from zero to a first GPLA result in a few minutes.
 
-1. create (or load) spike trains and an **analytic** LFP signal
-2. run `{py:func}`pygpla.api.gpla``
-3. inspect the gPLV and the spike/LFP vectors
+You will:
 
-If you want a full “publication-style” reproduction with transient models and multi-panel
-plots, see `docs/tutorials.md`.
+- verify the installation
+- run GPLA on a small synthetic dataset
+- learn the expected input shapes
+- (optionally) add a significance test
+
+If you want the full Figure 2-style reproduction with transient models and multi-panel plots,
+see :doc:`tutorials`.
 
 ## Install
 
@@ -23,6 +27,20 @@ Optional (recommended) extras:
 pip install -e ".[sim]"
 ```
 
+:::{note}
+`.[sim]` installs SciPy. You don’t need it for the core GPLA computation itself, but you often
+need it for real-data preprocessing (bandpass filtering + Hilbert transform).
+:::
+
+## Installation check
+
+```{code-block} python
+import pygpla
+print(f"PyGPLA version: {pygpla.__version__}")
+```
+
+If this fails, confirm you installed from the repo root and that your environment is active.
+
 ## Minimal example (synthetic transient coupling)
 
 This uses the built-in simulator `{py:func}`pygpla.simulations.transient.simulate_transient_locked``
@@ -31,7 +49,8 @@ to generate:
 - `spikes`: a list of trials, each shaped `(n_units, n_samples)` with 0/1 spikes
 - `lfp_analytic`: a complex array shaped `(n_channels, n_samples, n_trials)`
 
-```python
+```{code-block} python
+:linenos:
 import numpy as np
 
 from pygpla.api import gpla
@@ -85,6 +104,13 @@ print("Spike vector shape:", result.spike_vector.shape)
 print("Selected units:", result.metadata["selected_units"])
 ```
 
+**Key points**
+
+- `result.gplv` is the scalar coupling strength (the leading singular value of the coupling matrix).
+- `result.lfp_vector[:, 0]` is the dominant LFP pattern across channels.
+- `result.spike_vector[:, 0]` is the dominant spike pattern across units.
+- The vectors are complex: magnitude ≈ contribution strength, angle ≈ relative phase.
+
 ## Understanding the inputs (shapes)
 
 `gpla(spike_trains, lfp_signal, ...)` expects:
@@ -95,7 +121,7 @@ print("Selected units:", result.metadata["selected_units"])
 :::{note}
 For real data, you typically build `lfp_signal` by bandpass filtering around a target
 frequency and applying a Hilbert transform to get the complex analytic signal.
-The Figure 2 tutorial shows a concrete example of that preprocessing.
+The Figure 2 tutorial shows a concrete example of that preprocessing: :doc:`tutorials`.
 :::
 
 ## Interpreting the outputs (what you get back)
@@ -110,7 +136,7 @@ The Figure 2 tutorial shows a concrete example of that preprocessing.
 
 A quick way to look at phases/magnitudes:
 
-```python
+```{code-block} python
 import numpy as np
 
 spike_phases = np.angle(result.spike_vector[:, 0])
@@ -119,13 +145,39 @@ print("Spike phase (rad):", spike_phases)
 print("Spike magnitude:", spike_magnitudes)
 ```
 
+## Working with real data (building the analytic LFP)
+
+PyGPLA expects an **analytic** (complex) LFP input. If you have a real LFP time series, a
+common workflow is:
+
+1. bandpass filter around a frequency band of interest
+2. apply a Hilbert transform to get the complex analytic signal
+
+```{code-block} python
+:linenos:
+import numpy as np
+from scipy.signal import butter, filtfilt, hilbert
+
+def bandpass_hilbert(x: np.ndarray, sf: float, band_hz: tuple[float, float]) -> np.ndarray:
+    nyq = sf / 2.0
+    b, a = butter(2, [band_hz[0] / nyq, band_hz[1] / nyq], btype="bandpass")
+    xf = filtfilt(b, a, x)
+    return hilbert(xf)
+
+# Example shape convention:
+# lfp_real: (n_channels, n_samples, n_trials)
+# lfp_analytic: same shape, complex dtype
+```
+
+You can then pass `lfp_analytic` into `{py:func}`pygpla.api.gpla``.
+
 ## Adding significance testing (optional)
 
 PyGPLA supports two main significance-testing modes:
 
 ### 1) Analytical RMT-based test (fast)
 
-```python
+```{code-block} python
 result = gpla(
     spikes,
     lfp_analytic,
@@ -137,7 +189,7 @@ print("RMT reject?:", result.stats["gPLV_stats"]["nullHypoReject"])
 
 ### 2) Spike-jitter surrogates (flexible but slower)
 
-```python
+```{code-block} python
 stats_config = {
     "testType": "spike-jittering",
     "nJtr": 200,
@@ -156,7 +208,33 @@ result = gpla(
 print("p-value:", result.p_value)
 ```
 
-## Next steps
+:::{important}
+Jitter p-values require enough surrogates (`nJtr`) to be meaningful; `nJtr=1` is only useful
+to sanity-check the code path.
+:::
 
-- Reproduce Figure 2 and learn the code structure: `docs/tutorials.md`
-- Browse the API reference: `docs/api.md`
+## Common troubleshooting
+
+:::{admonition} “LFP signal must be a 3D array…”
+:class: warning
+Ensure `lfp_signal` is shaped `(channels, samples, trials)` (not `(samples, channels)` and not
+missing the trials dimension).
+:::
+
+:::{admonition} “Whitening requires analytic (complex) LFP signal”
+:class: warning
+Whitening is only defined for complex analytic LFPs in PyGPLA. Compute the analytic signal
+first (bandpass + Hilbert), then set `flag_whitening=1` or `2`.
+:::
+
+:::{admonition} “Units with NaNs were excluded from SVD”
+:class: note
+This usually means some units had zero spikes, which creates NaNs under spike-count
+normalization. Use `nSpikeThreshold` (or a `PreprocessingConfig`) to filter low-spike units.
+:::
+
+## What’s next?
+
+- Full reproduction and deeper explanation: :doc:`tutorials`
+- API reference: :doc:`api`
+- Usage notes (normalization, whitening, statistics knobs): :doc:`usage`
