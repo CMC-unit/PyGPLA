@@ -1,3 +1,5 @@
+:orphan:
+
 # Community & Support
 
 Placeholder for contribution, support, and communication channels.

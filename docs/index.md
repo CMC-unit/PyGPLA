@@ -6,7 +6,6 @@ Generalized Phase Locking Analysis (GPLA) for multichannel spike–field couplin
 :caption: Getting Started
 :maxdepth: 1
 
-overview
 installation
 quickstart
 tutorials
@@ -16,9 +15,10 @@ tutorials
 :caption: User Guide
 :maxdepth: 1
 
-usage
 examples
 api
+usage
+guides/index
 ```
 
 ```{toctree}
@@ -27,4 +27,6 @@ api
 
 community
 legal
+contributing
+license
 ```
