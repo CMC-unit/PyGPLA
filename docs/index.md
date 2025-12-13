@@ -25,7 +25,6 @@ guides/index
 :caption: Community & Legal
 :maxdepth: 1
 
-community
 legal
 contributing
 license
