@@ -13,16 +13,24 @@ def whitenRed2(dataMat_raw: np.ndarray, proportion=0.99):
     """
     Select PCA components accounting for a proportion of variance and whiten.
 
-    Inputs
-    - dataMat_raw: array (channels x samples)
-    - proportion: float in (0,1] for variance proportion OR int>=1 for n comps,
-                  OR np.nan to keep full rank without reduction (MATLAB parity).
+    Parameters
+    ----------
+    dataMat_raw : np.ndarray
+        Input matrix shaped (channels, samples).
+    proportion : float | int
+        Float in (0, 1] for variance proportion, int >= 1 for component count,
+        or np.nan to keep full rank (MATLAB parity).
 
     Returns
-    - whitenDataMat: whitened data (nred x samples)
-    - whitenOpr: whitening operator (nred x channels)
-    - whitenInvOpr: unwhitening operator (channels x nred)
-    - meanVec: channel-wise mean of input (channels,)
+    -------
+    whitenDataMat : np.ndarray
+        Whitened data of shape (nred, samples).
+    whitenOpr : np.ndarray
+        Whitening operator (nred, channels).
+    whitenInvOpr : np.ndarray
+        Unwhitening operator (channels, nred).
+    meanVec : np.ndarray
+        Channel-wise mean of input (channels,).
     """
     if dataMat_raw.ndim != 2:
         raise ValueError("dataMat_raw must be 2D (channels x samples)")
