@@ -1,8 +1,27 @@
+:orphan:
+
 # Legal
 
-Placeholder for licensing and policy information.
+This page summarizes licensing and legal notes for PyGPLA.
 
-Include:
-- License summary and link to full text
-- Code of conduct / security policy (if applicable)
-- Usage/distribution notes
+## License
+
+PyGPLA is distributed under the **BSD 2-Clause License**.
+
+- Full text: `LICENSE`
+- Docs summary: :doc:`license`
+
+## Third-party content
+
+This repository may contain third-party materials used for development or reference (for
+example PDFs under `tmp/`). Those materials may be subject to separate copyright and terms
+and should not be assumed to be covered by the PyGPLA software license.
+
+If you plan to publish PyGPLA to PyPI, it’s a good practice to ensure distributions (sdist and
+wheel) only include files you have redistribution rights for.
+
+## Security and responsible disclosure
+
+If you discover a security issue, please avoid posting sensitive details publicly. Open a
+private communication channel with the maintainers (or open an issue with minimal details)
+so it can be addressed responsibly.
