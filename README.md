@@ -1,6 +1,6 @@
 # PyGPLA: Generalized Phase Locking Analysis in Python
 
-[![License](https://img.shields.io/github/license/CMC-lab/PyGPLA)](LICENSE)
+[![License: BSD-2-Clause](https://img.shields.io/badge/License-BSD%202--Clause-blue.svg)](LICENSE)
 
 PyGPLA is a Python package for analyzing **multichannel spike–field coupling** using
 **Generalized Phase Locking Analysis (GPLA)** as introduced in:
