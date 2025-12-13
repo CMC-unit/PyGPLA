@@ -17,9 +17,6 @@ This repository may contain third-party materials used for development or refere
 example PDFs under `tmp/`). Those materials may be subject to separate copyright and terms
 and should not be assumed to be covered by the PyGPLA software license.
 
-If you plan to publish PyGPLA to PyPI, it’s a good practice to ensure distributions (sdist and
-wheel) only include files you have redistribution rights for.
-
 ## Security and responsible disclosure
 
 If you discover a security issue, please avoid posting sensitive details publicly. Open a
