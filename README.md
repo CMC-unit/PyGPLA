@@ -139,19 +139,6 @@ pytest
 
 ## Citing
 
-If you use GPLA in scientific work, please cite the original method paper:
-
-```bibtex
-@article{safavi2023gpla,
-  title   = {Uncovering the organization of neural circuits with Generalized Phase Locking Analysis},
-  author  = {Safavi, Shervin and Panagiotaropoulos, Theofanis I. and Kapoor, Vishal and Ramirez-Villegas, Juan F. and Logothetis, Nikos K. and Besserve, Michel},
-  journal = {PLOS Computational Biology},
-  year    = {2023}
-}
-```
-
-If you also want a software citation entry for PyGPLA (Zenodo/DOI), tell me your preferred
-format and whether you plan to archive releases.
 
 ## License
 
