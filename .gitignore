@@ -1,0 +1,16 @@
+# OS / editor
+.DS_Store
+**/.DS_Store
+
+# Python bytecode
+__pycache__/
+**/__pycache__/
+*.py[cod]
+
+# Sphinx build artifacts
+docs/_build/
+docs/_autosummary/
+
+# Local outputs / scratch
+reports/
+tmp/
