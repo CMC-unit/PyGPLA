@@ -2,14 +2,15 @@
 
 [![License: BSD-2-Clause](https://img.shields.io/badge/License-BSD%202--Clause-blue.svg)](LICENSE)
 
+<!-- DOCS_INDEX_START -->
+
 PyGPLA is a Python package for analyzing **multichannel spike–field coupling** using
 **Generalized Phase Locking Analysis (GPLA)** as introduced in:
 
 Safavi et al. (2023), *Uncovering the organization of neural circuits with Generalized Phase
 Locking Analysis*, PLOS Computational Biology.
 
-GPLA summarizes high-dimensional spike–LFP coupling by constructing a complex coupling
-matrix and computing its dominant low-rank structure via SVD. The output includes:
+GPLA summarizes high-dimensional **spike–[Local Field Potential (LFP)](https://en.wikipedia.org/wiki/Local_field_potential)** coupling by constructing a complex coupling matrix and computing its dominant low-rank structure via [Singular Value Decomposition (SVD)](https://en.wikipedia.org/wiki/Singular_value_decomposition). The output includes:
 
 - a scalar coupling strength (**gPLV**)
 - an **LFP vector** and **spike vector** whose magnitudes/phases are interpretable at the
@@ -109,7 +110,7 @@ Input conventions:
 - spike trains: list of trials, each `(n_units, n_samples)`
 - analytic LFP: `(n_channels, n_samples, n_trials)` complex array (bandpass + Hilbert in real data)
 
-## Reproducing Figure 2 (paper-style illustration)
+## Reproducing Figure 2 from the original paper (Safavi et al., 2023)
 
 Run:
 
@@ -118,6 +119,8 @@ python paper/Figures/figure2.py
 ```
 
 This generates `paper/Figures/figure2_python.png`.
+
+<!-- DOCS_INDEX_END -->
 
 ## Documentation
 
