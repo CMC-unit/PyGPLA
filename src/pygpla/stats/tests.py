@@ -89,7 +89,7 @@ def run_statistical_test(
     ) = run_gpla_core(
         spike_trains,
         lfp_signal,
-        normalize_gplv=0,
+        normalize_gplv=flag_gplv_normalization,
         sv_index=sv_index,
         same_electrode_info=same_electrode_info,
         normalization_method=normalization_method,
@@ -177,7 +177,7 @@ def run_statistical_test(
             ) = run_gpla_core(
                 j_spk,
                 lfp_signal,
-                normalize_gplv=0,
+                normalize_gplv=flag_gplv_normalization,
                 sv_index=sv_index,
                 same_electrode_info=None,
                 normalization_method=normalization_method,
