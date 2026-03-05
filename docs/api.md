@@ -5,7 +5,6 @@ These entries are generated with Sphinx autodoc/autosummary.
 ## High-level analysis
 
 ```{autosummary}
-:caption: High-level API
 
 pygpla.api.gpla
 pygpla.api.GPLAResult
@@ -14,7 +13,6 @@ pygpla.api.GPLAResult
 ## Configuration
 
 ```{autosummary}
-:caption: Configuration
 
 pygpla.config.PreprocessingConfig
 pygpla.config.WhiteningConfig
@@ -26,7 +24,6 @@ pygpla.config.validate_lfp_signal
 ## Core routines
 
 ```{autosummary}
-:caption: Core math
 
 pygpla.core.coupling.compute_coupling_matrix
 pygpla.core.factorization.factorize_coupling_matrix
@@ -39,7 +36,6 @@ pygpla.core.whitening.whitenRed4
 ## Preprocessing
 
 ```{autosummary}
-:caption: Preprocessing
 
 pygpla.preprocessing.spike_lfp.prepare_spike_lfp_data
 ```
@@ -47,7 +43,6 @@ pygpla.preprocessing.spike_lfp.prepare_spike_lfp_data
 ## Statistics
 
 ```{autosummary}
-:caption: Statistical testing
 
 pygpla.stats.tests.run_statistical_test
 pygpla.stats.jitter.interval_jitter
@@ -61,7 +56,6 @@ pygpla.stats.summaries.summarize_plv_matrix
 ## Simulations
 
 ```{autosummary}
-:caption: Simulations
 
 pygpla.simulations.phase_locked.generate_phase_locked_spikes
 pygpla.simulations.poisson.generate_homogeneous_poisson
