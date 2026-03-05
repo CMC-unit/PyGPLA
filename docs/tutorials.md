@@ -1,14 +1,12 @@
 # Tutorials
 
-This page is a hands-on, end-to-end walkthrough of the *Figure 2* style simulations used in
-the GPLA paper, implemented in this repository as `paper/Figures/figure2.py`.
+This page provides a hands-on, end-to-end walkthrough of the simulations and analysis used to reproduce *Figure 2* from **Safavi et al. (2023)**. The implementation is available in `paper/Figures/figure2.py`.
 
-The goal is twofold:
+The goals are twofold:
 
 1. Reproduce the *Figure 2* output (`paper/Figures/figure2_python.png`).
-2. Understand the important parts of the code and the GPLA pipeline:
-   simulation → analytic LFP construction → coupling matrix/SVD → (optional) statistics →
-   plotting and interpretation.
+2. Understand the key components of the GPLA pipeline:  
+   simulation → analytic LFP construction → coupling matrix / SVD → (optional) statistics → plotting and interpretation.
 
 :::{note}
 This tutorial is written for Sphinx + MyST (`myst_parser`). It shows code as static snippets
@@ -321,7 +319,7 @@ them into fixed subplot positions.
 ```{literalinclude} ../paper/Figures/figure2.py
 :language: python
 :linenos:
-:lines: 305-408
+:lines: 305-356
 ```
 
 Finally, the figure is saved into `paper/Figures/`:
@@ -329,7 +327,7 @@ Finally, the figure is saved into `paper/Figures/`:
 ```{literalinclude} ../paper/Figures/figure2.py
 :language: python
 :linenos:
-:lines: 409-446
+:lines: 357-365
 ```
 
 ## Most important takeaways
