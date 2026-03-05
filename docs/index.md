@@ -25,7 +25,6 @@ tutorials
 examples
 api
 usage
-guides/index
 ```
 
 ```{toctree}
