@@ -25,6 +25,7 @@ tutorials
 examples
 api
 usage
+software_architecture
 ```
 
 ```{toctree}
