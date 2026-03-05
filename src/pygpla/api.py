@@ -49,6 +49,7 @@ def gpla(
     iSV: int = 1,
     sameElecCheckInfo_r: Optional[Dict[str, Any]] = None,
     plvNrmlzMethed: str = "nSpk-square-root",
+    plvNrmlzMethod: str | None = None,
     flag_whitening: int = 0,
     flag_lfpNrmlz: int = 0,
     preprocessing_config: PreprocessingConfig | None = None,
@@ -80,6 +81,9 @@ def gpla(
         Optional same-electrode mapping for coupling correction.
     plvNrmlzMethed :
         Coupling normalization method ("nSpk", "nSpk-square-root", "var1_theoretical").
+    plvNrmlzMethod :
+        Alias for `plvNrmlzMethed` with corrected spelling. If both are provided with
+        different values, a `ValueError` is raised.
     flag_whitening :
         Whitening method flag (0 off, 1/2 PCA variants).
     flag_lfpNrmlz :
@@ -92,6 +96,14 @@ def gpla(
     GPLAResult
         Dataclass with LFP/spike vectors, gPLV, p-value, stats dict/NaN, and metadata.
     """
+
+    if plvNrmlzMethod is not None:
+        if plvNrmlzMethed != "nSpk-square-root" and plvNrmlzMethed != plvNrmlzMethod:
+            raise ValueError(
+                "Received conflicting normalization parameters: "
+                f"plvNrmlzMethed={plvNrmlzMethed!r} and plvNrmlzMethod={plvNrmlzMethod!r}."
+            )
+        plvNrmlzMethed = plvNrmlzMethod
 
     spike_list = [np.asarray(st) for st in spike_trains]
     lfp_array = np.asarray(lfp_signal)

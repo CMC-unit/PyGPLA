@@ -87,3 +87,42 @@ def test_transient_models_separate_locked_and_null_conditions():
     # Spike vector dimensionality should match selected units (all units kept)
     for res in results:
         assert res.spike_vector.shape[0] == signal_params["nUnit"]
+
+
+def test_gpla_accepts_corrected_plv_normalization_keyword_alias():
+    signal_params = dict(
+        nCh=1,
+        nUnit=8,
+        SF=400.0,
+        nTr=3,
+        signalLength=3.0,
+    )
+    global_params = dict(
+        oscFreq=20.0,
+        nCycl=10,
+        syncSigProportion=0.7,
+        lfpPhaseNoise_kappa=8.0,
+        whiteNoise_sigma=0.05,
+    )
+    spike_params = dict(avefiringRate=12.0)
+    coupling_params = dict(lockingStrength_kappa=8.0, lockingPhase=0.0)
+
+    _, lfp_analytic, spikes, _ = simulate_transient_locked(
+        global_params,
+        spike_params,
+        coupling_params,
+        signal_params,
+        return_analytic=True,
+        rng=np.random.default_rng(7),
+    )
+
+    result = gpla(
+        spikes,
+        lfp_analytic,
+        stats_config=None,
+        plvNrmlzMethod="var1_theoretical",
+        flag_whitening=0,
+        flag_lfpNrmlz=0,
+    )
+
+    assert np.isfinite(result.gplv)
