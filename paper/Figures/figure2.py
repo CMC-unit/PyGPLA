@@ -32,6 +32,14 @@ from pygpla.api import gpla
 from pygpla.simulations import simulate_transient_locked
 
 
+DPI = 600
+PANEL_LABEL_SIZE = 14
+TITLE_SIZE = 9
+AXIS_LABEL_SIZE = 8
+TICK_LABEL_SIZE = 7
+SAVE_FORMATS = ("png", "pdf", "svg", "eps")
+
+
 @dataclass
 class SignalParams:
     nCh: int = 1
@@ -60,16 +68,19 @@ def _polar_spkvec(ax, spk_vec: np.ndarray, title: str = "", color="red"):
     ax.set_theta_zero_location("E")
     th = np.angle(spk_vec)
     r = np.abs(spk_vec)
-    ax.scatter(th, r, s=15, c=color, alpha=0.8)
+    ax.scatter(th, r, s=14, c=color, alpha=1.0, linewidths=0)
     max_r = max(0.5, np.nanmax(r) if r.size else 0.5)
     ax.set_rmax(max_r)
     ax.set_rticks([0, max_r / 2, max_r])
     ax.set_rgrids(
-        [max_r / 2, max_r], labels=[f"{max_r/2:.1f}", f"{max_r:.1f}"], fontsize=8
+        [max_r / 2, max_r],
+        labels=[f"{max_r/2:.1f}", f"{max_r:.1f}"],
+        fontsize=TICK_LABEL_SIZE,
     )
     ax.set_thetagrids(np.arange(0, 360, 45))
-    ax.grid(True, alpha=0.3)
-    ax.set_title(title, fontsize=10, pad=10)
+    ax.grid(True, color="0.82", linewidth=0.45)
+    ax.tick_params(labelsize=TICK_LABEL_SIZE, pad=1)
+    ax.set_title(title, fontsize=TITLE_SIZE, pad=8)
 
 
 def _bandpass_and_analytic(lfp_real: np.ndarray, sf: float, band: Tuple[float, float]) -> np.ndarray:
@@ -91,7 +102,7 @@ def _plot_model_schematic(ax, model_type: int, n_units: int = 6):
     ax.set_xlim(0, 10)
     ax.set_ylim(0, 10)
 
-    circle = plt.Circle((5, 8), 0.8, color="black", fill=False, linewidth=2)
+    circle = plt.Circle((5, 8), 0.8, color="black", fill=False, linewidth=1.2)
     ax.add_patch(circle)
 
     unit_positions = np.linspace(1.5, 8.5, n_units)
@@ -115,11 +126,11 @@ def _plot_model_schematic(ax, model_type: int, n_units: int = 6):
 
     for i, (x_pos, color, lw) in enumerate(zip(unit_positions, colors, line_widths)):
         triangle = plt.Polygon(
-            [(x_pos - 0.3, 2), (x_pos + 0.3, 2), (x_pos, 2.6)], color=color, alpha=0.8
+            [(x_pos - 0.3, 2), (x_pos + 0.3, 2), (x_pos, 2.6)], color=color, alpha=1.0
         )
         ax.add_patch(triangle)
         if lw > 0.5:
-            ax.plot([x_pos, 5], [2.6, 7.2], color=color, linewidth=lw, alpha=0.7)
+            ax.plot([x_pos, 5], [2.6, 7.2], color=color, linewidth=1.1, alpha=1.0)
 
     ax.set_aspect("equal")
     ax.axis("off")
@@ -129,11 +140,30 @@ def main():
     plt.style.use("default")
     plt.rcParams.update(
         {
-            "font.size": 9,
-            "axes.linewidth": 1,
-            "xtick.major.width": 1,
-            "ytick.major.width": 1,
-            "figure.dpi": 150,
+            "font.family": "sans-serif",
+            "font.sans-serif": ["Arial", "Helvetica", "DejaVu Sans"],
+            "font.size": TICK_LABEL_SIZE,
+            "axes.titlesize": TITLE_SIZE,
+            "axes.labelsize": AXIS_LABEL_SIZE,
+            "xtick.labelsize": TICK_LABEL_SIZE,
+            "ytick.labelsize": TICK_LABEL_SIZE,
+            "axes.linewidth": 0.8,
+            "axes.titleweight": "regular",
+            "axes.labelpad": 2.5,
+            "axes.titlepad": 4,
+            "xtick.major.width": 0.8,
+            "ytick.major.width": 0.8,
+            "xtick.major.size": 2.5,
+            "ytick.major.size": 2.5,
+            "xtick.direction": "out",
+            "ytick.direction": "out",
+            "figure.dpi": DPI,
+            "savefig.dpi": DPI,
+            "savefig.bbox": "tight",
+            "savefig.pad_inches": 0.04,
+            "pdf.fonttype": 42,
+            "ps.fonttype": 42,
+            "svg.fonttype": "none",
         }
     )
 
@@ -244,8 +274,7 @@ def main():
         lfp_examples.append(lfp_real[0, :, 0])
         spike_rasters.append(spikeTrains_raw[0])
 
-    fig = plt.figure(figsize=(10, 10))
-    fig.suptitle("Figure 2: Illustrative simulations", fontsize=14, fontweight="bold")
+    fig = plt.figure(figsize=(7.2, 8.2))
 
     model_colors = ["#2E8B57", "#DAA520", "#CD853F", "#708090"]
 
@@ -255,26 +284,26 @@ def main():
     wr = win_ranges[0]
     extended_range = slice(max(0, fr.start - 1000), min(len(sig), fr.stop + 3000))
     x = np.arange(len(sig)) / signal_params.SF
-    ax1.plot(x[extended_range], sig[extended_range], "k-", linewidth=0.8)
+    ax1.plot(x[extended_range], sig[extended_range], "k-", linewidth=0.75)
     win_start_time = x[wr.start] if wr.start < len(x) else x[-1]
     win_end_time = x[wr.stop - 1] if wr.stop <= len(x) else x[-1]
-    ax1.axvspan(win_start_time, win_end_time, color="blue", alpha=0.2)
+    ax1.axvspan(win_start_time, win_end_time, color="#d8e6ff", alpha=1.0, linewidth=0)
     ax1.set_ylabel("Amplitude")
-    ax1.set_title("LFP signal with analysis window highlighted", fontsize=11)
+    ax1.set_title("LFP signal with analysis window highlighted")
     for spine in ("top", "right"):
         if spine in ax1.spines:
             ax1.spines[spine].set_visible(False)
     scale_x = x[extended_range][-1] - 0.5
     scale_y = np.max(sig[extended_range]) * 0.8
-    ax1.plot([scale_x - 0.5, scale_x], [scale_y, scale_y], "k-", linewidth=2)
-    ax1.text(scale_x - 0.25, scale_y + 0.1, "500 ms", ha="center", fontsize=8)
+    ax1.plot([scale_x - 0.5, scale_x], [scale_y, scale_y], "k-", linewidth=1.2)
+    ax1.text(scale_x - 0.25, scale_y + 0.1, "500 ms", ha="center", fontsize=TICK_LABEL_SIZE)
 
     ax2 = plt.subplot(5, 3, 3)
-    bars = ax2.bar(range(1, 5), gplv_vals, color=model_colors, alpha=0.8, edgecolor="black", linewidth=1)
+    bars = ax2.bar(range(1, 5), gplv_vals, color=model_colors, alpha=1.0, edgecolor="black", linewidth=0.6)
     ax2.set_xticks(range(1, 5))
     ax2.set_xticklabels(["M1", "M2", "M3", "M4"])
     ax2.set_ylabel("gPLV")
-    ax2.set_title("Global PLV", fontsize=11)
+    ax2.set_title("Global PLV")
     ax2.set_ylim(0, max(gplv_vals) * 1.1)
     for spine in ("top", "right"):
         if spine in ax2.spines:
@@ -285,13 +314,13 @@ def main():
 
         ax_model = plt.subplot(5, 3, (row - 1) * 3 + 1)
         _plot_model_schematic(ax_model, i + 1)
-        ax_model.set_title(f"{case['name']}", fontsize=10, fontweight="bold")
+        ax_model.set_title(f"{case['name']}", fontsize=TITLE_SIZE, fontweight="bold")
 
         ax_combined = plt.subplot(5, 3, (row - 1) * 3 + 2)
         sig = lfp_examples[i]
         wr = win_ranges[i]
         x_win = np.arange(len(sig)) / signal_params.SF
-        ax_combined.plot(x_win[wr], sig[wr], color=model_colors[i], linewidth=1.5, label="LFP")
+        ax_combined.plot(x_win[wr], sig[wr], color=model_colors[i], linewidth=1.0, label="LFP")
 
         lfp_min = np.min(sig[wr])
         lfp_max = np.max(sig[wr])
@@ -306,22 +335,23 @@ def main():
             ax_combined.scatter(
                 spike_times,
                 unit_positions,
-                s=8,
+                s=7,
                 c=spike_colors,
-                alpha=0.7,
+                alpha=1.0,
                 marker="|",
-                linewidths=1,
+                linewidths=0.7,
             )
 
         ax_combined.set_ylabel("LFP Amplitude")
         ax_combined.set_xlabel("Time (s)")
-        ax_combined.set_title("LFP + Spike trains", fontsize=9)
+        ax_combined.set_title("LFP + spike trains")
         for spine in ("top", "right"):
             if spine in ax_combined.spines:
                 ax_combined.spines[spine].set_visible(False)
 
         ax_polar = plt.subplot(5, 3, (row - 1) * 3 + 3, projection="polar")
         _polar_spkvec(ax_polar, spk_vecs[i], title="Spike vector", color="red")
+
 
     label_positions = [
         (0.02, 0.92, "A"),
@@ -337,28 +367,35 @@ def main():
             x_pos,
             y_pos,
             label,
-            fontsize=14,
+            fontsize=PANEL_LABEL_SIZE,
             fontweight="bold",
-            bbox=dict(boxstyle="round,pad=0.3", facecolor="white", edgecolor="black"),
+            ha="left",
+            va="top",
+            color="black",
         )
 
     if len(cases) >= 3:
         cax = fig.add_axes([0.15, 0.02, 0.3, 0.02])
+        cax.set_in_layout(False)
         cmap = plt.cm.hsv
         sm = plt.cm.ScalarMappable(cmap=cmap, norm=plt.Normalize(vmin=0, vmax=360))
         sm.set_array([])
         cbar = plt.colorbar(sm, cax=cax, orientation="horizontal")
-        cbar.set_label("Phase lag [deg]", fontsize=9)
+        cbar.set_label("Phase lag [deg]", fontsize=AXIS_LABEL_SIZE)
         cbar.set_ticks([0, 180, 360])
+        cbar.ax.tick_params(labelsize=TICK_LABEL_SIZE, width=0.8, length=2.5)
 
-    plt.tight_layout()
-    plt.subplots_adjust(top=0.9, bottom=0.08)
+    fig.subplots_adjust(
+        left=0.08, right=0.97, top=0.9, bottom=0.08, hspace=1.0, wspace=0.65
+    )
 
     figures_dir = Path(__file__).resolve().parent
     figures_dir.mkdir(parents=True, exist_ok=True)
-    outpath = figures_dir / "figure2_python.png"
-    plt.savefig(outpath, dpi=300, bbox_inches="tight")
-    print(f"Saved figure: {outpath}")
+    basepath = figures_dir / "figure2_python"
+    for ext in SAVE_FORMATS:
+        outpath = f"{basepath}.{ext}"
+        plt.savefig(outpath, dpi=DPI, bbox_inches="tight")
+        print(f"Saved figure: {outpath}")
 
 
 if __name__ == "__main__":
