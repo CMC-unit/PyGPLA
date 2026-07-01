@@ -6,7 +6,7 @@ from typing import Dict, List, Optional, Tuple
 
 import numpy as np
 
-from .phase_locked import _i0, _i1
+from .phase_locked import _i0
 from .poisson import generate_inhomogeneous_poisson
 
 __all__ = ["simulate_transient_locked"]

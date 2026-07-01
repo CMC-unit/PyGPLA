@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Optional, Sequence, Tuple, Union
+from typing import Dict, Optional, Sequence, Tuple, Union
 
 import numpy as np
 
@@ -21,7 +21,15 @@ def _apply_config_overrides(
     temporalWindow: Optional[Union[Tuple[int, int], Sequence[np.ndarray]]],
     flag_lfpNrmlz: int,
     plvNrmlzMethed: str,
-) -> Tuple[int, Optional[int], Optional[np.ndarray], Optional[Union[Tuple[int, int], Sequence[np.ndarray]]], int, str, Optional[float | int]]:
+) -> Tuple[
+    int,
+    Optional[int],
+    Optional[np.ndarray],
+    Optional[Union[Tuple[int, int], Sequence[np.ndarray]]],
+    int,
+    str,
+    Optional[float | int],
+]:
     """Map config dataclass fields onto legacy flags without changing behaviour."""
 
     variance_prop = None
@@ -219,7 +227,8 @@ def prepare_spike_lfp_data(
     if flag_lfpNrmlz:
         if np.isrealobj(lfpPhases_allTrLong):
             raise ValueError(
-                "Phase should not be normalized; provide analytic signal if normalization is desired"
+                "Phase should not be normalized; provide analytic signal "
+                "if normalization is desired"
             )
         stds = lfpPhases_allTrLong.std(axis=1, keepdims=True)
         stds[stds == 0] = 1.0

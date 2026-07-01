@@ -83,7 +83,9 @@ def isi_preserved_jitter(
 
             out_of_range = (new_cols < 1) | (new_cols > n_sample)
             if np.any(out_of_range):
-                new_cols[out_of_range] = np.random.randint(1, n_sample + 1, size=out_of_range.sum())
+                new_cols[out_of_range] = np.random.randint(
+                    1, n_sample + 1, size=out_of_range.sum()
+                )
             jittered[unit_idx, new_cols - 1] = 1
 
     return jittered

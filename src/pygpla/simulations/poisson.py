@@ -20,7 +20,8 @@ def generate_homogeneous_poisson(
     """
     Generate homogeneous Poisson spike trains.
 
-    Parameters replicate the MATLAB/Python port: firing_rates can be scalar, per-unit, or per-trial.
+    Parameters replicate the MATLAB/Python port: firing_rates can be scalar,
+    per-unit, or per-trial.
     Returns an array of shape (units, n_bins, trials) with 0/1 spikes.
     """
 
@@ -70,7 +71,6 @@ def generate_inhomogeneous_poisson(
         fr = fr[:, :, None]
 
     n_unit = n_unit or fr.shape[0]
-    n_bins = int(round(duration_s * sf))
     n_tr = n_tr or fr.shape[2]
 
     min_val = fr.min()
