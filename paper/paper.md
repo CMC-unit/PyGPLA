@@ -80,10 +80,6 @@ The `pygpla` package is distributed under the BSD-2-Clause license. PyGPLA follo
 
 ## Use of generative AI
 
-<!-- TODO(authors): Edit this paragraph so it accurately reflects your actual
-use of generative-AI tools. JOSS requires a transparent disclosure (or an
-explicit statement that none was used). Delete whichever option does not apply. -->
-
 Generative AI tools were used to assist with auxiliary development tasks such as
 drafting documentation, refactoring code for style, and generating boilerplate
 for tests and continuous-integration configuration. All AI-assisted output was
