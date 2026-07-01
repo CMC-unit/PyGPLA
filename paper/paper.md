@@ -80,17 +80,11 @@ The `pygpla` package is distributed under the BSD-2-Clause license. PyGPLA follo
 
 ## Use of generative AI
 
-<!-- TODO(authors): Edit this paragraph so it accurately reflects your actual
-use of generative-AI tools. JOSS requires a transparent disclosure (or an
-explicit statement that none was used). Delete whichever option does not apply. -->
-
-Generative AI tools were used to assist with auxiliary development tasks such as
-drafting documentation, refactoring code for style, and generating boilerplate
-for tests and continuous-integration configuration. All AI-assisted output was
-reviewed, tested, and validated by the authors, who take full responsibility for
-the correctness of the software and the content of this paper. The scientific
-method, algorithmic design, and numerical implementation of GPLA were carried out
-by the authors.
+Generative AI tools were used only to assist with drafting documentation and
+refactoring code for style. All AI-assisted output was reviewed, tested, and
+validated by the authors, who take full responsibility for the correctness of the
+software and the content of this paper. The scientific method, algorithmic design,
+and numerical implementation of GPLA were carried out by the authors.
 
 ## Acknowledgments
 

@@ -9,7 +9,7 @@ This page summarizes licensing and legal notes for PyGPLA.
 PyGPLA is distributed under the **BSD 2-Clause License**.
 
 - Full text: `LICENSE`
-- Docs summary: :doc:`license`
+- Docs summary: {doc}`license`
 
 ## Third-party content
 

@@ -126,7 +126,8 @@ The split helps users reason about reproducibility and runtime costs.
 - Test framework: **pytest**
 - Current tests include:
   - transient simulation sanity/integration checks
-  - placeholder baseline test
+  - unit tests for the coupling matrix, SVD factorization, whitening, spike-jitter
+    surrogates, and input validation
 - Lint tooling configuration is present via **Ruff** in `pyproject.toml`.
 
 As the package matures, parity/regression tests against MATLAB reference outputs are the next

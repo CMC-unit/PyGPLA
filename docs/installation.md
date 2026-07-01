@@ -33,15 +33,13 @@ conda activate pygpla
 
 ## Install PyGPLA
 
-### From PyPI (placeholder)
-
-Once published:
+### From PyPI
 
 ```bash
 pip install pygpla
 ```
 
-### From source (recommended for now)
+### From source
 
 ```bash
 git clone https://github.com/CMC-lab/PyGPLA.git
@@ -118,6 +116,6 @@ pip install -e ".[docs]"
 
 ## Next steps
 
-- Quickstart: :doc:`quickstart`
-- Tutorials (Figure 2 walkthrough): :doc:`tutorials`
-- Usage notes and configuration knobs: :doc:`usage`
+- Quickstart: {doc}`quickstart`
+- Tutorials (Figure 2 walkthrough): {doc}`tutorials`
+- Usage notes and configuration knobs: {doc}`usage`
