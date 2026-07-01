@@ -7,6 +7,12 @@ __pycache__/
 **/__pycache__/
 *.py[cod]
 
+# Build / packaging artifacts
+dist/
+build/
+*.egg-info/
+.matplotlib_cache/
+
 # Sphinx build artifacts
 docs/_build/
 docs/_autosummary/
