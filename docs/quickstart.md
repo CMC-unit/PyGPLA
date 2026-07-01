@@ -11,7 +11,7 @@ You will:
 - (optionally) add a significance test
 
 If you want the full Figure 2-style reproduction with transient models and multi-panel plots,
-see :doc:`tutorials`.
+see {doc}`tutorials`.
 
 ## Install
 
@@ -121,7 +121,7 @@ print("Selected units:", result.metadata["selected_units"])
 :::{note}
 For real data, you typically build `lfp_signal` by bandpass filtering around a target
 frequency and applying a Hilbert transform to get the complex analytic signal.
-The Figure 2 tutorial shows a concrete example of that preprocessing: :doc:`tutorials`.
+The Figure 2 tutorial shows a concrete example of that preprocessing: {doc}`tutorials`.
 :::
 
 ## Interpreting the outputs (what you get back)
@@ -243,6 +243,6 @@ normalization. Use `nSpikeThreshold` (or a `PreprocessingConfig`) to filter low-
 
 ## What’s next?
 
-- Full reproduction and deeper explanation: :doc:`tutorials`
-- API reference: :doc:`api`
-- Usage notes (normalization, whitening, statistics knobs): :doc:`usage`
+- Full reproduction and deeper explanation: {doc}`tutorials`
+- API reference: {doc}`api`
+- Usage notes (normalization, whitening, statistics knobs): {doc}`usage`

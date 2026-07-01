@@ -13,7 +13,7 @@ Please use the GitHub issue tracker for:
 - bug reports (include a minimal reproduction and your environment)
 - feature requests and discussion
 
-If you plan to contribute code or documentation, see :doc:`contributing`.
+If you plan to contribute code or documentation, see {doc}`contributing`.
 
 ## Lab
 
