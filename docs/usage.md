@@ -60,7 +60,7 @@ print("Spike vector shape:", result.spike_vector.shape)
 
 ## Statistical testing
 
-- **RMT analytical**: set `stats_config={"testType": "RMT-based"}`; uses Marchenko–Pastur bound on the top singular value.
+- **RMT analytical**: set `stats_config={"testType": "RMT-based"}`; uses the Marchenko–Pastur bound on the top singular value. This is a threshold test that yields a reject/accept **decision**, so `result.p_value` is `NaN` by design — read the decision from `result.stats["gPLV_stats"]["nullHypoReject"]`.
 - **Spike-jitter surrogates**: `stats_config={"testType": "spike-jittering", "nJtr": 200, "jitterType": "interval-jittering", "jitterWinWidth": 0.05, "alphaValue": 0.05, "spkSF": sampling_rate}`; supports interval, ISI-preserved, group-preserved, and population jittering.
 
 ## Preprocessing knobs

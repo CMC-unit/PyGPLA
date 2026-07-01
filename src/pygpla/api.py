@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass, is_dataclass
-from typing import Any, Dict, Optional, Sequence, Union
+from typing import Any, Dict, Optional, Union
 
 import numpy as np
 
@@ -16,7 +16,32 @@ __all__ = ["GPLAResult", "gpla"]
 
 @dataclass(slots=True)
 class GPLAResult:
-    """Container for GPLA outputs."""
+    """Container for GPLA outputs.
+
+    Attributes
+    ----------
+    lfp_vector, spike_vector :
+        Phase-rotated singular vectors describing the dominant LFP and spike
+        coupling modes.
+    gplv :
+        Generalized phase-locking value (dominant singular value).
+    p_value :
+        Significance p-value from the statistical test. This is populated for the
+        surrogate-based ``"spike-jittering"`` test. For the analytical
+        ``"RMT-based"`` test it is ``NaN`` **by design**: that test is a hard
+        threshold against the Marchenko-Pastur edge and yields a reject/accept
+        decision rather than a continuous p-value. The decision is available at
+        ``stats["gPLV_stats"]["nullHypoReject"]`` (see below). ``p_value`` is also
+        ``NaN`` when ``stats_config=None`` (no test requested).
+    stats :
+        Dict with ``"gPLV_stats"``, ``"PLV_stats"`` and ``"SV_stats"`` when a test
+        is run (otherwise ``NaN``). For ``"RMT-based"``,
+        ``stats["gPLV_stats"]["nullHypoReject"]`` is the boolean significance
+        decision and ``stats["gPLV_stats"]["gPLV_testStat"]`` is the scaled
+        singular value compared against the Marchenko-Pastur edge.
+    metadata :
+        Bookkeeping about the analysis (selected units, whitening, etc.).
+    """
 
     lfp_vector: np.ndarray
     spike_vector: np.ndarray
@@ -26,7 +51,9 @@ class GPLAResult:
     metadata: Dict[str, Any]
 
 
-def _stats_config_to_dict(stats_config: Union[Dict[str, Any], StatTestConfig, None]) -> Dict[str, Any] | None:
+def _stats_config_to_dict(
+    stats_config: Union[Dict[str, Any], StatTestConfig, None],
+) -> Dict[str, Any] | None:
     if stats_config is None:
         return None
     if isinstance(stats_config, dict):
@@ -75,6 +102,9 @@ def gpla(
         If set, spike vectors are expanded back to original unit dimension (NaN fill).
     stats_config :
         Dict or `StatTestConfig` specifying "RMT-based" or "spike-jittering" options.
+        Note: the "RMT-based" test is analytical and returns a significance
+        *decision* rather than a p-value, so `GPLAResult.p_value` is NaN for it
+        (see `GPLAResult`); use the "spike-jittering" test if a p-value is needed.
     iSV :
         Singular value index (1-based) to analyze.
     sameElecCheckInfo_r :
@@ -95,6 +125,8 @@ def gpla(
     -------
     GPLAResult
         Dataclass with LFP/spike vectors, gPLV, p-value, stats dict/NaN, and metadata.
+        For the "RMT-based" test, ``p_value`` is NaN by design and the significance
+        decision is exposed at ``result.stats["gPLV_stats"]["nullHypoReject"]``.
     """
 
     if plvNrmlzMethod is not None:
