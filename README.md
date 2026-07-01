@@ -29,15 +29,13 @@ GPLA summarizes high-dimensional **spike–[Local Field Potential (LFP)](https:/
 
 ## Installation
 
-### From PyPI (placeholder)
-
-PyPI publishing is planned; once available:
+### From PyPI
 
 ```bash
 pip install pygpla
 ```
 
-### From source (recommended for now)
+### From source
 
 ```bash
 git clone https://github.com/CMC-lab/PyGPLA.git
@@ -115,10 +113,10 @@ Input conventions:
 Run:
 
 ```bash
-python paper/Figures/figure2.py
+python paper/figures/figure2.py
 ```
 
-This generates `paper/Figures/figure2_python.png`.
+This generates `paper/figures/figure2_python.png`.
 
 <!-- DOCS_INDEX_END -->
 
@@ -142,6 +140,21 @@ pytest
 
 ## Citing
 
+If you use PyGPLA in your research, please cite the original GPLA method paper:
+
+> Safavi, S., et al. (2023). *Uncovering the organization of neural circuits with
+> Generalized Phase Locking Analysis.* PLOS Computational Biology.
+
+```bibtex
+@article{safavi2023uncovering,
+  title   = {Uncovering the organization of neural circuits with Generalized Phase Locking Analysis},
+  author  = {Safavi, Shervin and others},
+  journal = {PLOS Computational Biology},
+  year    = {2023}
+}
+```
+
+A dedicated software citation (JOSS) will be added here once the paper is published.
 
 ## License
 

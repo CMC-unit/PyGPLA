@@ -131,7 +131,7 @@ The Figure 2 tutorial shows a concrete example of that preprocessing: :doc:`tuto
 - `result.gplv`: the dominant singular value of the coupling matrix (global coupling strength)
 - `result.lfp_vector`: complex LFP pattern (channels × components)
 - `result.spike_vector`: complex spike pattern (units × components)
-- `result.p_value`: p-value when a statistical test is requested (else NaN)
+- `result.p_value`: p-value from the spike-jitter test (NaN when no test is requested, and NaN by design for the analytical RMT-based test — read its decision from `result.stats["gPLV_stats"]["nullHypoReject"]`)
 - `result.metadata["raw_svd"]["couplingMatrix"]`: the complex coupling matrix used for SVD
 
 A quick way to look at phases/magnitudes:
@@ -186,6 +186,14 @@ result = gpla(
 )
 print("RMT reject?:", result.stats["gPLV_stats"]["nullHypoReject"])
 ```
+
+:::{note}
+The RMT-based test is an analytical **threshold** test (the top singular value
+against the Marchenko–Pastur edge). It returns a **reject/accept decision**, not a
+continuous p-value, so `result.p_value` is `NaN` for this test *by design*. Read the
+decision from `result.stats["gPLV_stats"]["nullHypoReject"]`. If you specifically
+need a p-value, use the spike-jitter surrogate test below.
+:::
 
 ### 2) Spike-jitter surrogates (flexible but slower)
 

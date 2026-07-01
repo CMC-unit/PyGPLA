@@ -27,12 +27,15 @@ def _analytic_representation(lfp_signal: np.ndarray, normalization_method: str) 
 def _normalization_factors(spike_counts: np.ndarray, method: str) -> np.ndarray:
     """Compute normalization factors for each unit."""
 
-    if method == "nSpk":
-        nf = np.power(spike_counts, -1.0)
-    elif method in ("nSpk-square-root", "var1_theoretical"):
-        nf = np.power(spike_counts, -0.5)
-    else:
-        raise ValueError(f"Unsupported normalization method: {method}")
+    # Zero-spike units intentionally produce non-finite factors (handled below),
+    # so silence the expected divide-by-zero from the power operation.
+    with np.errstate(divide="ignore"):
+        if method == "nSpk":
+            nf = np.power(spike_counts, -1.0)
+        elif method in ("nSpk-square-root", "var1_theoretical"):
+            nf = np.power(spike_counts, -0.5)
+        else:
+            raise ValueError(f"Unsupported normalization method: {method}")
 
     nf[~np.isfinite(nf)] = np.nan
     return nf
@@ -87,7 +90,9 @@ def compute_coupling_matrix(
 
     coupling_raw = analytic_lfp @ spikes_float.T
     nf = _normalization_factors(spike_counts, normalization_method)
-    coupling_matrix = (nf[np.newaxis, :] * np.abs(coupling_raw)) * np.exp(1j * np.angle(coupling_raw))
+    coupling_matrix = (nf[np.newaxis, :] * np.abs(coupling_raw)) * np.exp(
+        1j * np.angle(coupling_raw)
+    )
 
     if same_electrode_info is not None:
         # Lazy import to avoid circular dependency during module import time
@@ -99,7 +104,9 @@ def compute_coupling_matrix(
 
         if table is not None:
             table = np.asarray(table)
-            jittered = interval_jitter(spikes.astype(int, copy=False), jitter_window, sampling_rate)
+            jittered = interval_jitter(
+                spikes.astype(int, copy=False), jitter_window, sampling_rate
+            )
             jittered_coupling, _ = compute_coupling_matrix(
                 jittered, lfp, normalization_method=normalization_method, same_electrode_info=None
             )

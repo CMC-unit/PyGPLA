@@ -1,10 +1,10 @@
 # Tutorials
 
-This page provides a hands-on, end-to-end walkthrough of the simulations and analysis used to reproduce *Figure 2* from **Safavi et al. (2023)**. The implementation is available in `paper/Figures/figure2.py`.
+This page provides a hands-on, end-to-end walkthrough of the simulations and analysis used to reproduce *Figure 2* from **Safavi et al. (2023)**. The implementation is available in `paper/figures/figure2.py`.
 
 The goals are twofold:
 
-1. Reproduce the *Figure 2* output (`paper/Figures/figure2_python.png`).
+1. Reproduce the *Figure 2* output (`paper/figures/figure2_python.png`).
 2. Understand the key components of the GPLA pipeline:  
    simulation → analytic LFP construction → coupling matrix / SVD → (optional) statistics → plotting and interpretation.
 
@@ -15,7 +15,7 @@ and does **not** execute code during the docs build.
 
 ## What you will build
 
-`paper/Figures/figure2.py` generates four synthetic “transient coupling” scenarios:
+`paper/figures/figure2.py` generates four synthetic “transient coupling” scenarios:
 
 - **Model 1 (global synchrony)**: all units lock to the same LFP phase during transient events.
 - **Model 2 (phase gradient)**: units have systematically different preferred phases.
@@ -56,18 +56,18 @@ is separate and can be run in an environment that has `matplotlib` and `scipy`.
 Run the script directly:
 
 ```bash
-python paper/Figures/figure2.py
+python paper/figures/figure2.py
 ```
 
 It saves:
 
-- `paper/Figures/figure2_python.png`
+- `paper/figures/figure2_python.png`
 
 The rest of this page explains *how* that script works.
 
 ## Script overview
 
-At a high level, `paper/Figures/figure2.py` has four layers:
+At a high level, `paper/figures/figure2.py` has four layers:
 
 1. **Setup**: imports, path handling for `src/`, Matplotlib config.
 2. **Helpers**: choose plotting windows, compute analytic LFP, and helper plots.
@@ -79,7 +79,7 @@ At a high level, `paper/Figures/figure2.py` has four layers:
 The figure script is designed to be runnable from the repo even if the package is not
 installed. It adds `src/` to the Python path and sets a local Matplotlib cache directory.
 
-```{literalinclude} ../paper/Figures/figure2.py
+```{literalinclude} ../paper/figures/figure2.py
 :language: python
 :linenos:
 :lines: 1-45
@@ -103,7 +103,7 @@ The simulation is configured with two types of parameters:
 
 `SignalParams` defines the default “recording” shape used across all models:
 
-```{literalinclude} ../paper/Figures/figure2.py
+```{literalinclude} ../paper/figures/figure2.py
 :language: python
 :linenos:
 :lines: 48-63
@@ -121,7 +121,7 @@ In the default figure:
 
 Inside `main()`, `global_params` configures the transient oscillatory LFP:
 
-```{literalinclude} ../paper/Figures/figure2.py
+```{literalinclude} ../paper/figures/figure2.py
 :language: python
 :linenos:
 :lines: 129-149
@@ -142,7 +142,7 @@ The four models differ in two per-unit parameters:
 - `lockingStrength_kappa` (coupling strength; `0` means no locking),
 - `lockingPhase` (each unit’s preferred phase).
 
-```{literalinclude} ../paper/Figures/figure2.py
+```{literalinclude} ../paper/figures/figure2.py
 :language: python
 :linenos:
 :lines: 151-190
@@ -167,7 +167,7 @@ complex form). In real data, you usually:
 
 That’s exactly what `_bandpass_and_analytic()` does:
 
-```{literalinclude} ../paper/Figures/figure2.py
+```{literalinclude} ../paper/figures/figure2.py
 :language: python
 :linenos:
 :lines: 88-108
@@ -190,7 +190,7 @@ this entire step and pass it directly into `{py:func}`pygpla.api.gpla``.
 The simulator returns `meta["event_trains"]` (a list of transient start times per trial). The
 script uses that metadata to choose a short window for plotting:
 
-```{literalinclude} ../paper/Figures/figure2.py
+```{literalinclude} ../paper/figures/figure2.py
 :language: python
 :linenos:
 :lines: 66-86
@@ -207,7 +207,7 @@ Two small helpers are used to mimic the style of the paper figure:
 - `_polar_spkvec()` plots each unit’s spike-vector coefficient in polar coordinates
   (angle = phase, radius = magnitude).
 
-```{literalinclude} ../paper/Figures/figure2.py
+```{literalinclude} ../paper/figures/figure2.py
 :language: python
 :linenos:
 :lines: 111-127
@@ -232,7 +232,7 @@ It returns:
 The figure script calls it with `return_analytic=False` because it wants to compute the
 analytic LFP via bandpass/Hilbert (previous section):
 
-```{literalinclude} ../paper/Figures/figure2.py
+```{literalinclude} ../paper/figures/figure2.py
 :language: python
 :linenos:
 :lines: 206-246
@@ -242,7 +242,7 @@ analytic LFP via bandpass/Hilbert (previous section):
 
 The GPLA call in the script is:
 
-```{literalinclude} ../paper/Figures/figure2.py
+```{literalinclude} ../paper/figures/figure2.py
 :language: python
 :linenos:
 :lines: 248-292
@@ -297,7 +297,7 @@ SVD-based decompositions are only unique up to a global complex phase. The GPLA 
 already sets a phase convention, but for plotting the script also flips the sign if the (real)
 sum of the LFP vector is negative:
 
-```{literalinclude} ../paper/Figures/figure2.py
+```{literalinclude} ../paper/figures/figure2.py
 :language: python
 :linenos:
 :lines: 294-303
@@ -316,15 +316,15 @@ builds a multi-row layout:
 The plotting code is long but straightforward: it pulls from lists built in the loop and plots
 them into fixed subplot positions.
 
-```{literalinclude} ../paper/Figures/figure2.py
+```{literalinclude} ../paper/figures/figure2.py
 :language: python
 :linenos:
 :lines: 305-356
 ```
 
-Finally, the figure is saved into `paper/Figures/`:
+Finally, the figure is saved into `paper/figures/`:
 
-```{literalinclude} ../paper/Figures/figure2.py
+```{literalinclude} ../paper/figures/figure2.py
 :language: python
 :linenos:
 :lines: 357-365
