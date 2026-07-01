@@ -13,8 +13,6 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, List, Tuple
 
-import matplotlib.patches as mpatches
-from matplotlib.patches import Rectangle
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.signal import butter, filtfilt, hilbert
@@ -30,7 +28,6 @@ os.environ.setdefault("MPLCONFIGDIR", str(MPL_CACHE))
 
 from pygpla.api import gpla
 from pygpla.simulations import simulate_transient_locked
-
 
 DPI = 600
 PANEL_LABEL_SIZE = 14
@@ -49,7 +46,9 @@ class SignalParams:
     signalLength: float = 10.0
 
 
-def _choose_event_window(meta: Dict, sf: float, tr_index: int, pad_samples: int = 100) -> Tuple[slice, slice]:
+def _choose_event_window(
+    meta: Dict, sf: float, tr_index: int, pad_samples: int = 100
+) -> Tuple[slice, slice]:
     events = meta["event_trains"][tr_index]
     if len(events) == 0:
         mid = int(round(meta["transient_length_samples"]))
@@ -83,7 +82,9 @@ def _polar_spkvec(ax, spk_vec: np.ndarray, title: str = "", color="red"):
     ax.set_title(title, fontsize=TITLE_SIZE, pad=8)
 
 
-def _bandpass_and_analytic(lfp_real: np.ndarray, sf: float, band: Tuple[float, float]) -> np.ndarray:
+def _bandpass_and_analytic(
+    lfp_real: np.ndarray, sf: float, band: Tuple[float, float]
+) -> np.ndarray:
     n_ch, n_bins, n_tr = lfp_real.shape
     out = np.zeros((n_ch, n_bins, n_tr), dtype=np.complex128)
     nyq = sf / 2.0
@@ -299,7 +300,14 @@ def main():
     ax1.text(scale_x - 0.25, scale_y + 0.1, "500 ms", ha="center", fontsize=TICK_LABEL_SIZE)
 
     ax2 = plt.subplot(5, 3, 3)
-    bars = ax2.bar(range(1, 5), gplv_vals, color=model_colors, alpha=1.0, edgecolor="black", linewidth=0.6)
+    ax2.bar(
+        range(1, 5),
+        gplv_vals,
+        color=model_colors,
+        alpha=1.0,
+        edgecolor="black",
+        linewidth=0.6,
+    )
     ax2.set_xticks(range(1, 5))
     ax2.set_xticklabels(["M1", "M2", "M3", "M4"])
     ax2.set_ylabel("gPLV")

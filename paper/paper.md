@@ -29,7 +29,7 @@ affiliations:
 
 date: "2026-03-22"
 bibliography: paper.bib
-repository: "https://github.com/shervinsafavi/pygpla"
+repository: "https://github.com/CMC-lab/PyGPLA"
 crossref: true
 url: "https://pygpla.readthedocs.io/en/latest/"
 
@@ -37,7 +37,7 @@ url: "https://pygpla.readthedocs.io/en/latest/"
 
 ## Summary
 
-PyGPLA is a Python implementation of Generalized Phase Locking Analysis (GPLA) for multivariate analysis of coupling between spikes and local field potentials (LFPs) [@safavi2023uncovering]. For a given frequency, GPLA constructs a complex coupling matrix $\hat{C}(f) \in \mathbb{C}^{N_c \times N_u}$ between LFP channels ($N_c$) and spike units ($N_u$), then applies singular value decomposition (SVD) to reduce the dimentionality of data. The leading singular value (gPLV) summarizes population-level coupling strength, while the corresponding singular vectors describe dominant LFP and spike coupling modes. PyGPLA provides a full analysis workflow including LFP preprocessing, coupling-matrix construction, SVD-based decomposition, and diverse statistical significance testing [@safavi2021univariate].
+PyGPLA is a Python implementation of Generalized Phase Locking Analysis (GPLA) for multivariate analysis of coupling between spikes and local field potentials (LFPs) [@safavi2023uncovering]. For a given frequency, GPLA constructs a complex coupling matrix $\hat{C}(f) \in \mathbb{C}^{N_c \times N_u}$ between LFP channels ($N_c$) and spike units ($N_u$), then applies singular value decomposition (SVD) to reduce the dimensionality of data. The leading singular value (gPLV) summarizes population-level coupling strength, while the corresponding singular vectors describe dominant LFP and spike coupling modes. PyGPLA provides a full analysis workflow including LFP preprocessing, coupling-matrix construction, SVD-based decomposition, and diverse statistical significance testing [@safavi2021univariate].
 
 
 ## Statement of need
@@ -54,7 +54,7 @@ Existing spike–field coupling methods - including the phase-locking value (PLV
 
 ### Core analysis pipeline
 
-PyGPLA provides an comprehensive solution for multivariate spike–field coupling analysis, including:
+PyGPLA provides a comprehensive solution for multivariate spike–field coupling analysis, including:
 
 - **LFP preprocessing:** Band-pass filtering, Hilbert transform for analytic signal extraction, and optional reduced-rank whitening to decorrelate channels while avoiding noise amplification [@chavez2006proper].
 - **Coupling-matrix construction:** Assembly of the complex-valued coupling matrix $\widehat{\mathbf{C}}(f) \in \mathbb{C}^{N_c \times N_u}$, where each entry sums the analytic LFP evaluated at all spike times of a given unit.
@@ -76,7 +76,21 @@ Code snippets and detailed instructions for reproducing these results are availa
 
 ## Implementation details
 
-The `pygpla` package is distributed under the BSD-3-Clause license. PyGPLA follows a layered architecture separating preprocessing (`pygpla.preprocessing`), core computation (`pygpla.core`), statistical testing (`pygpla.stats`), simulation utilities (`pygpla.simulations`), and configuration (`pygpla.config`). The high-level API (`pygpla.api.gpla`) orchestrates the full pipeline in a single call, keeping default usage compact while preserving access to lower-level components for advanced analyses. The package is built on NumPy [@harris2020array] and SciPy [@virtanen2020fundamental], and includes a `pytest` test suite with continuous integration via GitHub Actions.
+The `pygpla` package is distributed under the BSD-2-Clause license. PyGPLA follows a layered architecture separating preprocessing (`pygpla.preprocessing`), core computation (`pygpla.core`), statistical testing (`pygpla.stats`), simulation utilities (`pygpla.simulations`), and configuration (`pygpla.config`). The high-level API (`pygpla.api.gpla`) orchestrates the full pipeline in a single call, keeping default usage compact while preserving access to lower-level components for advanced analyses. The package is built on NumPy [@harris2020array] and SciPy [@virtanen2020fundamental], and includes a `pytest` test suite with continuous integration via GitHub Actions.
+
+## Use of generative AI
+
+<!-- TODO(authors): Edit this paragraph so it accurately reflects your actual
+use of generative-AI tools. JOSS requires a transparent disclosure (or an
+explicit statement that none was used). Delete whichever option does not apply. -->
+
+Generative AI tools were used to assist with auxiliary development tasks such as
+drafting documentation, refactoring code for style, and generating boilerplate
+for tests and continuous-integration configuration. All AI-assisted output was
+reviewed, tested, and validated by the authors, who take full responsibility for
+the correctness of the software and the content of this paper. The scientific
+method, algorithmic design, and numerical implementation of GPLA were carried out
+by the authors.
 
 ## Acknowledgments
 
