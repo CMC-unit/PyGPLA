@@ -110,13 +110,14 @@ Input conventions:
 
 ## Reproducing Figure 2 from the original paper (Safavi et al., 2023)
 
-Run:
+Install the extras it needs (SciPy for filtering, Matplotlib for plotting), then run:
 
 ```bash
+pip install -e ".[sim,figures]"
 python paper/figures/figure2.py
 ```
 
-This generates `paper/figures/figure2_python.png`.
+This generates `paper/figures/figure2_python.png` (plus PDF/SVG/EPS exports).
 
 <!-- DOCS_INDEX_END -->
 
