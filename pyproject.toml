@@ -42,6 +42,9 @@ tests = [
 sim = [
   "scipy>=1.9",
 ]
+figures = [
+  "matplotlib>=3.5",
+]
 
 [project.urls]
 Repository = "https://github.com/CMC-lab/PyGPLA"
@@ -52,6 +55,17 @@ path = "src/pygpla/_version.py"
 
 [tool.hatch.metadata]
 allow-direct-references = true
+
+[tool.hatch.build.targets.sdist]
+include = [
+  "src/pygpla",
+  "tests",
+  "README.md",
+  "LICENSE",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/pygpla"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

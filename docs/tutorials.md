@@ -39,16 +39,15 @@ signal processing libraries.
 From the repo root:
 
 ```bash
-pip install -e ".[sim,docs]"
-pip install matplotlib
+pip install -e ".[sim,figures,docs]"
 ```
 
 - `.[sim]` provides SciPy (needed for bandpass filtering + Hilbert transform).
-- `matplotlib` is required to render and save the figure.
+- `.[figures]` provides Matplotlib, required to render and save the figure.
 
 :::{note}
 If you only want to **build the docs**, you typically only need `.[docs]`. The figure script
-is separate and can be run in an environment that has `matplotlib` and `scipy`.
+is separate and can be run in an environment that has `.[sim,figures]` installed.
 :::
 
 ### Quick reproduction (one command)
