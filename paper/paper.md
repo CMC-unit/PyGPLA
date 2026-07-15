@@ -88,6 +88,6 @@ and numerical implementation of GPLA were carried out by the authors.
 
 ## Acknowledgments
 
-We acknowledge contributions from collaborators who provided feedback during the development of PyGPLA. Shervin Safavi acknowledges the support from the Max Planck Society and an add-on fellowship from the Joachim Herz Foundation.
+We acknowledge contributions from collaborators who provided feedback during the development of pyGPLA. S.S. acknowledges support from the Max Planck Society and an add-on fellowship from the Joachim Herz Foundation. C.B. acknowledges support from the Federal Ministry of Research, Technology and Space (Bundesministerium für Forschung, Technologie und Raumfahrt; BMFTR) as part of the German Center for Child and Adolescent Health (DZKJ) under funding code 01GL2405B.
 
 ## References
