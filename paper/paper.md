@@ -37,7 +37,7 @@ url: "https://pygpla.readthedocs.io/en/latest/"
 
 ## Summary
 
-PyGPLA is a Python implementation of Generalized Phase Locking Analysis (GPLA) for multivariate analysis of coupling between spikes and local field potentials (LFPs) [@safavi2023uncovering]. For a given frequency, GPLA constructs a complex coupling matrix $\hat{C}(f) \in \mathbb{C}^{N_c \times N_u}$ between LFP channels ($N_c$) and spike units ($N_u$), then applies singular value decomposition (SVD) to reduce the dimensionality of data. The leading singular value (gPLV) summarizes population-level coupling strength, while the corresponding singular vectors describe dominant LFP and spike coupling modes. PyGPLA provides a full analysis workflow including LFP preprocessing, coupling-matrix construction, SVD-based decomposition, and diverse statistical significance testing [@safavi2021univariate].
+PyGPLA is a Python implementation of Generalized Phase Locking Analysis (GPLA) for multivariate analysis of coupling between spikes and local field potentials (LFPs) [@safavi2023uncovering]. For a given frequency, GPLA constructs a complex coupling matrix $\hat{C}(f) \in \mathbb{C}^{N_c \times N_u}$ between LFP channels ($N_c$) and spike units ($N_u$), then applies singular value decomposition (SVD) to reduce the dimensionality of data. The leading singular value summarizes population-level coupling strength, while the corresponding singular vectors describe dominant LFP and spike coupling modes. PyGPLA provides a complete analysis workflow including LFP preprocessing, coupling-matrix construction, SVD-based decomposition, and diverse statistical significance testing [@safavi2021univariate].
 
 
 ## Statement of need
@@ -48,7 +48,7 @@ However, commonly used spike-LFP coupling measures are pairwise, making them sub
 
 GPLA was developed to address these challenges by providing an efficient multivariate framework together with statistical routines [@safavi2021univariate] for characterizing spike-LFP coupling at the population level [@safavi2023uncovering]. However, the original algorithm was implemented in MATLAB, limiting its accessibility. PyGPLA bridges this gap as an open-source Python implementation, aligning with the extensive use of Python in neuroscience as solidified by libraries such as MNE-Python [@GramfortEtAl2013a], Nilearn [@Nilearn], and TranCIT [@Nouri2025].
 
-Existing spike–field coupling methods - including the phase-locking value (PLV), pairwise phase consistency (PPC) [@vinck2010pairwise], and spike-field coherence - operate on individual spike–LFP channel pairs. While informative for small-scale recordings, these pairwise approaches face combinatorial scaling with modern high-density probes, and do not directly capture the population-level structure of coupling. GPLA addresses this gap by providing a multivariate method that summarizes all spike–LFP interactions simultaneously, analogous to how PCA summarizes covariance structure. To our knowledge, no other Python package implements this multivariate approach to spike–field coupling analysis.
+Existing spike–field coupling methods - including the phase-locking value (PLV), pairwise phase consistency (PPC) [@vinck2010pairwise], and spike-field coherence - operate on individual spike–LFP channel pairs. While informative for small-scale recordings, these pairwise approaches do not directly capture the population-level structure of coupling, which is of paramount importance for recordings with modern high-density probes. GPLA addresses this gap by providing a multivariate method that summarizes all spike–field interactions simultaneously, analogous to how multivariate statitical methods summarizes covariance structure (well-known example is Principal component analysis  or PCA). To our knowledge, no other Python package implements this multivariate approach to spike–field coupling analysis.
 
 ## Functionality
 
@@ -56,9 +56,9 @@ Existing spike–field coupling methods - including the phase-locking value (PLV
 
 PyGPLA provides a comprehensive solution for multivariate spike–field coupling analysis, including:
 
-- **LFP preprocessing:** Band-pass filtering, Hilbert transform for analytic signal extraction, and optional reduced-rank whitening to decorrelate channels while avoiding noise amplification [@chavez2006proper].
+- **LFP preprocessing:** Band-pass filtering, Hilbert transform for analytic signal extraction [@chavez2006proper], and optional reduced-rank whitening to decorrelate channels while avoiding noise amplification [@safavi2023uncovering].
 - **Coupling-matrix construction:** Assembly of the complex-valued coupling matrix $\widehat{\mathbf{C}}(f) \in \mathbb{C}^{N_c \times N_u}$, where each entry sums the analytic LFP evaluated at all spike times of a given unit.
-- **SVD-based decomposition:** Extraction of the gPLV (leading singular value) and associated LFP and spike spatial vectors, with rotational phase alignment, unwhitening of LFP vectors, and spike-vector rescaling.
+- **SVD-based decomposition:** Extraction of the generalized phase locking value or gPLV (the leading singular value) and associated LFP and spike spatial vectors, with rotational phase alignment, unwhitening of LFP vectors, and spike-vector rescaling.
 - **Statistical testing:** Significance assessment via two complementary approaches: (1) surrogate-based testing using multiple spike-jittering schemes, and (2) an analytical test based on Marchenko–Pastur Random Matrix Theory (RMT) [@anderson2010random; @safavi2023uncovering].
 - **Simulation tools:** Synthetic data generators for phase-locked and transient-coupling scenarios, supporting reproducibility and method validation.
 
