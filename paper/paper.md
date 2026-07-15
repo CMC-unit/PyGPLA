@@ -80,10 +80,14 @@ The `pygpla` package is distributed under the BSD-2-Clause license. PyGPLA follo
 
 ## Use of generative AI
 
-Generative AI tools were used only to assist with drafting documentation and refactoring code for style. All AI-assisted output was reviewed, tested, and validated by the authors, who take full responsibility for the correctness of the software and the content of this paper. The scientific method, algorithmic design, and numerical implementation of GPLA were carried out by the authors.
+Generative AI tools were used only to assist with drafting documentation and
+refactoring code for style. All AI-assisted output was reviewed, tested, and
+validated by the authors, who take full responsibility for the correctness of the
+software and the content of this paper. The scientific method, algorithmic design,
+and numerical implementation of GPLA were carried out by the authors.
 
 ## Acknowledgments
 
-We acknowledge contributions from collaborators who provided feedback during the development of PyGPLA. Shervin Safavi acknowledges the support from the Max Planck Society and an add-on fellowship from the Joachim Herz Foundation.
+We acknowledge contributions from collaborators who provided feedback during the development of pyGPLA. S.S. acknowledges support from the Max Planck Society and an add-on fellowship from the Joachim Herz Foundation. C.B. acknowledges support from the Federal Ministry of Research, Technology and Space (Bundesministerium für Forschung, Technologie und Raumfahrt; BMFTR) as part of the German Center for Child and Adolescent Health (DZKJ) under funding code 01GL2405B.
 
 ## References
