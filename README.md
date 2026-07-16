@@ -155,8 +155,6 @@ If you use PyGPLA in your research, please cite the original GPLA method paper:
 }
 ```
 
-A dedicated software citation (JOSS) will be added here once the paper is published.
-
 ## License
 
 BSD 2-Clause License. See `LICENSE`.
