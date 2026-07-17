@@ -132,7 +132,9 @@ def simulate_transient_locked(
             num = np.exp(kappa_spk[:, tr][:, None] * np.cos(phase))
             FR[:, start:stop, tr] = avFR[:, tr][:, None] * (num / I0_k[:, tr][:, None])
 
-    spikes_3d = generate_inhomogeneous_poisson(FR, duration_s, sf, n_tr=n_tr, n_unit=n_unit)
+    spikes_3d = generate_inhomogeneous_poisson(
+        FR, duration_s, sf, n_tr=n_tr, n_unit=n_unit, rng=rng
+    )
     spikes: List[np.ndarray] = [spikes_3d[:, :, tr] for tr in range(n_tr)]
 
     if return_analytic:
