@@ -47,7 +47,7 @@ def generate_homogeneous_poisson(
         raise ValueError("Only 'based_spikingProbality' method is supported.")
 
     if fr.size == 1:
-        prob = np.full((n_unit, n_bins, n_tr), float(fr) / sf)
+        prob = np.full((n_unit, n_bins, n_tr), float(fr.item()) / sf)
     elif fr.shape[1] == 1:
         prob = np.repeat(fr, n_bins, axis=1)[:, :, None] / sf
         prob = np.repeat(prob, n_tr, axis=2)
