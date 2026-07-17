@@ -49,8 +49,6 @@ pygpla.stats.jitter.interval_jitter
 pygpla.stats.jitter.isi_preserved_jitter
 pygpla.stats.jitter.group_preserved_jitter
 pygpla.stats.jitter.population_jitter
-pygpla.stats.summaries.summarize_gplv_results
-pygpla.stats.summaries.summarize_plv_matrix
 ```
 
 ## Simulations
