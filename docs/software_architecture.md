@@ -141,11 +141,11 @@ important QA step.
 
 ## Version Management
 
-PyGPLA currently uses an explicit package version:
+PyGPLA keeps its version in a single source:
 
-- `project.version = "0.0.1"` in `pyproject.toml`
-- `__version__ = "0.0.1"` in `src/pygpla/_version.py`
+- `__version__` in `src/pygpla/_version.py`
 
-The Hatch setting `tool.hatch.version.path = "src/pygpla/_version.py"` keeps the package's
-runtime version source in one place. Version bumps are therefore currently a deliberate,
-manual release action rather than git-tag-driven automation.
+`pyproject.toml` declares `dynamic = ["version"]` and points Hatch at that file via
+`tool.hatch.version.path = "src/pygpla/_version.py"`, so the build metadata and the runtime
+`pygpla.__version__` are read from the same place. Version bumps are a deliberate, manual
+release action (edit `_version.py`) rather than git-tag-driven automation.

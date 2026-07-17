@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "pygpla"
-version = "0.0.1"
+dynamic = ["version"]
 description = "Generalized Phase Locking Analysis (GPLA) toolkit in Python."
 readme = "README.md"
 requires-python = ">=3.10"
