@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Tuple
+from typing import Dict, Optional, Tuple
 
 import numpy as np
 
@@ -147,11 +147,15 @@ def _repeat_params(arr, n_unit, n_tr):
 def generate_phase_locked_spikes(
     spike_params: Dict,
     signal_params: Dict,
+    rng: Optional[np.random.Generator] = None,
 ) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
     """
     Generate phase-locked Poisson spike trains using von Mises modulation.
 
     Mirrors the MATLAB/PyGPLA_dev implementation.
+
+    Pass ``rng`` (a ``numpy.random.Generator``) for reproducible output; when it
+    is None a fresh, unseeded generator is used.
     """
 
     a = np.asarray(spike_params.get("lockingPhase", 0.0))
@@ -180,5 +184,7 @@ def generate_phase_locked_spikes(
             phase = 2 * np.pi * F[u, tr] * t - A[u, tr]
             FRmodulators[u, :, tr] = R[u, tr] * np.exp(K[u, tr] * np.cos(phase)) / _i0(K[u, tr])
 
-    spikes = generate_inhomogeneous_poisson(FRmodulators, duration_s, sf, n_tr=n_tr, n_unit=n_unit)
+    spikes = generate_inhomogeneous_poisson(
+        FRmodulators, duration_s, sf, n_tr=n_tr, n_unit=n_unit, rng=rng
+    )
     return spikes, theoPLV, FRmodulators
