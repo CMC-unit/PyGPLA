@@ -16,7 +16,7 @@ copyright = f"{datetime.now().year}, {author}"
 try:
     release = version("pygpla")
 except PackageNotFoundError:
-    release = "0.0.1"
+    release = "0.0.2"
 version = release
 
 extensions = [
