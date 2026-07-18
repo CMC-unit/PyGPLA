@@ -141,17 +141,45 @@ pytest
 
 ## Citing
 
-If you use PyGPLA in your research, please cite the original GPLA method paper:
+If you use PyGPLA in your research, please cite the following papers.
 
-> Safavi, S., et al. (2023). *Uncovering the organization of neural circuits with
-> Generalized Phase Locking Analysis.* PLOS Computational Biology.
+The original GPLA method paper:
+
+> Safavi, S., Panagiotaropoulos, T. I., Kapoor, V., Ramirez-Villegas, J. F.,
+> Logothetis, N. K., & Besserve, M. (2023). *Uncovering the organization of neural
+> circuits with Generalized Phase Locking Analysis.* PLOS Computational Biology,
+> 19(4), e1010983.
 
 ```bibtex
 @article{safavi2023uncovering,
   title   = {Uncovering the organization of neural circuits with Generalized Phase Locking Analysis},
-  author  = {Safavi, Shervin and others},
-  journal = {PLOS Computational Biology},
-  year    = {2023}
+  author  = {Safavi, Shervin and Panagiotaropoulos, Theofanis I. and Kapoor, Vishal and Ramirez-Villegas, Juan F. and Logothetis, Nikos K. and Besserve, Michel},
+  journal = {PLoS Computational Biology},
+  year    = {2023},
+  volume  = {19},
+  number  = {4},
+  pages   = {e1010983},
+  doi     = {10.1371/journal.pcbi.1010983}
+}
+```
+
+The mathematical framework underlying GPLA's coupling measure and its Random Matrix
+Theory–based significance test:
+
+> Safavi, S., Logothetis, N. K., & Besserve, M. (2021). *From Univariate to
+> Multivariate Coupling Between Continuous Signals and Point Processes: A
+> Mathematical Framework.* Neural Computation, 33(7), 1751–1817.
+
+```bibtex
+@article{safavi2021univariate,
+  title   = {From Univariate to Multivariate Coupling Between Continuous Signals and Point Processes: A Mathematical Framework},
+  author  = {Safavi, Shervin and Logothetis, Nikos K. and Besserve, Michel},
+  journal = {Neural Computation},
+  year    = {2021},
+  volume  = {33},
+  number  = {7},
+  pages   = {1751--1817},
+  doi     = {10.1162/neco_a_01389}
 }
 ```
 
