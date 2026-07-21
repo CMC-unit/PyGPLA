@@ -23,7 +23,8 @@ GPLA summarizes high-dimensional **spike–[Local Field Potential (LFP)](https:/
 - **Statistical testing**:
   - fast **RMT-based** heuristic (Marchenko–Pastur edge)
   - **spike-jitter** surrogate tests (interval / ISI-preserved / group-preserved / population)
-- **Preprocessing hooks**: trial concatenation, spike-count filtering, optional PCA whitening
+- **Data preparation**: trial concatenation, spike-count filtering, temporal/unit selection,
+  and optional PCA whitening of user-provided analytic LFP signals
 - **Simulations**: phase-locked and transient coupling generators
 - **Figure reproduction**: a Figure 2-style simulation and visualization script
 
@@ -106,7 +107,13 @@ print("Spike vector shape:", result.spike_vector.shape)
 Input conventions:
 
 - spike trains: list of trials, each `(n_units, n_samples)`
-- analytic LFP: `(n_channels, n_samples, n_trials)` complex array (bandpass + Hilbert in real data)
+- preferred LFP input: `(n_channels, n_samples, n_trials)` complex analytic array
+- supported alternative: a real array of phase angles in radians
+
+> `gpla()` does not treat real-valued input as raw LFP voltage. Raw LFP data must be
+> band-pass filtered and converted to an analytic signal upstream, for example with a
+> Hilbert transform. If a real array is passed, PyGPLA warns that it will be interpreted
+> as phase angles in radians.
 
 ## Reproducing Figure 2 from the original paper (Safavi et al., 2023)
 

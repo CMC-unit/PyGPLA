@@ -56,8 +56,10 @@ def compute_coupling_matrix(
     spike_trains:
         Array of shape (units, samples) with binary or count spikes.
     lfp_signal:
-        Real or complex LFP array of shape (channels, samples). Real inputs are wrapped
-        to unit-magnitude complex exponentials; complex inputs preserve amplitude.
+        Real phase-angle or complex analytic-LFP array of shape (channels, samples).
+        Real inputs are interpreted as radians and wrapped to unit-magnitude complex
+        exponentials; they are not treated as raw LFP voltage. Complex inputs preserve
+        amplitude.
     normalization_method:
         One of ``{"nSpk", "nSpk-square-root", "var1_theoretical"}`` controlling spike-count
         scaling in the coupling matrix.

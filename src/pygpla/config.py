@@ -69,10 +69,11 @@ def validate_spike_trains(spike_trains: Sequence[np.ndarray]) -> None:
 
 def validate_lfp_signal(lfp_signal: ArrayLike) -> np.ndarray:
     """
-    Ensure LFP input can be treated as a complex analytic array.
+    Validate the dimensions of an analytic-LFP or phase-array input.
 
     Requires a 3D array shaped (channels, samples, trials); raises ValueError otherwise.
-    Returns the array as np.ndarray for downstream use.
+    Complex arrays represent analytic LFP signals. Real arrays are interpreted downstream
+    as phase angles in radians, not as raw LFP voltage. Returns the input as an ndarray.
     """
 
     arr = np.asarray(lfp_signal)

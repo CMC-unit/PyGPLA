@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import warnings
 from dataclasses import asdict, dataclass, is_dataclass
 from typing import Any, Dict, Optional, Union
 
@@ -89,7 +90,9 @@ def gpla(
     spike_trains :
         List of spike arrays shaped (units, samples) per trial.
     lfp_signal :
-        Complex analytic LFP array shaped (channels, samples, trials).
+        Complex analytic LFP array shaped (channels, samples, trials). Real-valued
+        inputs are interpreted as phase angles in radians, not as raw LFP voltage,
+        and produce a warning.
     flag_gPLVnrmlz :
         Legacy gPLV normalization flag (0 keep raw, nonzero scales by matrix size).
     nSpikeThreshold :
@@ -139,6 +142,16 @@ def gpla(
 
     spike_list = [np.asarray(st) for st in spike_trains]
     lfp_array = np.asarray(lfp_signal)
+
+    if np.isrealobj(lfp_array):
+        warnings.warn(
+            "gpla received a real-valued LFP array. Real inputs are interpreted "
+            "as phase angles in radians, not as raw LFP voltage. If this is raw "
+            "LFP data, band-pass filter it and compute its analytic signal "
+            "(for example, using a Hilbert transform) before calling gpla().",
+            UserWarning,
+            stacklevel=2,
+        )
 
     (
         spikeTrains_allTrLong,

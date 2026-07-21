@@ -116,12 +116,14 @@ print("Selected units:", result.metadata["selected_units"])
 `gpla(spike_trains, lfp_signal, ...)` expects:
 
 - `spike_trains`: list of length `n_trials`, each element a 2D array `(n_units, n_samples)`
-- `lfp_signal`: a 3D **complex** array `(n_channels, n_samples, n_trials)`
+- `lfp_signal`: preferably a 3D **complex analytic** array
+  `(n_channels, n_samples, n_trials)`
 
-:::{note}
-For real data, you typically build `lfp_signal` by bandpass filtering around a target
-frequency and applying a Hilbert transform to get the complex analytic signal.
-The Figure 2 tutorial shows a concrete example of that preprocessing: {doc}`tutorials`.
+:::{important}
+`gpla()` does not interpret a real-valued array as raw LFP voltage. Real input is supported
+only as phase angles in radians and produces a warning. For raw LFP data, first bandpass
+filter around the frequency band of interest and apply a Hilbert transform to obtain the
+complex analytic signal. The Figure 2 tutorial shows a concrete example: {doc}`tutorials`.
 :::
 
 ## Interpreting the outputs (what you get back)
@@ -170,6 +172,10 @@ def bandpass_hilbert(x: np.ndarray, sf: float, band_hz: tuple[float, float]) -> 
 ```
 
 You can then pass `lfp_analytic` into `{py:func}`pygpla.api.gpla``.
+
+If you already have phase angles in radians, you may pass that real-valued phase array
+directly. PyGPLA emits a warning to distinguish this supported phase representation from
+accidentally supplied raw LFP voltage.
 
 ## Adding significance testing (optional)
 
