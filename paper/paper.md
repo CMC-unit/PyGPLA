@@ -37,7 +37,7 @@ url: "https://pygpla.readthedocs.io/en/latest/"
 
 ## Summary
 
-PyGPLA is a Python implementation of Generalized Phase Locking Analysis (GPLA) for multivariate analysis of coupling between spikes and local field potentials (LFPs) [@safavi2023uncovering]. For a given frequency, GPLA constructs a complex coupling matrix $\hat{C}(f) \in \mathbb{C}^{N_c \times N_u}$ between LFP channels ($N_c$) and spike units ($N_u$), then applies singular value decomposition (SVD) to reduce the dimensionality of data. The leading singular value summarizes population-level coupling strength, while the corresponding singular vectors describe dominant LFP and spike coupling modes. PyGPLA provides a complete analysis workflow including LFP preprocessing, coupling-matrix construction, SVD-based decomposition, and diverse statistical significance testing [@safavi2021univariate].
+PyGPLA is a Python implementation of Generalized Phase Locking Analysis (GPLA) for multivariate analysis of coupling between spikes and local field potentials (LFPs) [@safavi2023uncovering]. For a given frequency, GPLA constructs a complex coupling matrix $\hat{C}(f) \in \mathbb{C}^{N_c \times N_u}$ between LFP channels ($N_c$) and spike units ($N_u$), then applies singular value decomposition (SVD) to reduce the dimensionality of data. The leading singular value summarizes population-level coupling strength, while the corresponding singular vectors describe dominant LFP and spike coupling modes. PyGPLA accepts a user-provided frequency-specific analytic LFP signal or phase representation and provides data selection, optional whitening and normalization, coupling-matrix construction, SVD-based decomposition, and statistical significance testing [@safavi2021univariate].
 
 
 ## Statement of need
@@ -56,7 +56,7 @@ Existing spike–field coupling methods - including the phase-locking value (PLV
 
 PyGPLA provides a comprehensive solution for multivariate spike–field coupling analysis, including:
 
-- **LFP preprocessing:** Band-pass filtering, Hilbert transform for analytic signal extraction [@chavez2006proper], and optional reduced-rank whitening to decorrelate channels while avoiding noise amplification [@safavi2023uncovering].
+- **LFP input and data preparation:** PyGPLA accepts a user-provided complex analytic LFP signal or a real phase representation in radians. Raw LFP voltage must first be converted upstream to the desired frequency-specific analytic signal, for example through band-pass filtering followed by a Hilbert transform [@chavez2006proper]. PyGPLA then supports temporal and unit selection, optional channel-wise normalization, and optional reduced-rank whitening to decorrelate channels while avoiding noise amplification [@safavi2023uncovering].
 - **Coupling-matrix construction:** Assembly of the complex-valued coupling matrix $\widehat{\mathbf{C}}(f) \in \mathbb{C}^{N_c \times N_u}$, where each entry sums the analytic LFP evaluated at all spike times of a given unit.
 - **SVD-based decomposition:** Extraction of the generalized phase locking value or gPLV (the leading singular value) and associated LFP and spike spatial vectors, with rotational phase alignment, unwhitening of LFP vectors, and spike-vector rescaling.
 - **Statistical testing:** Significance assessment via two complementary approaches: (1) surrogate-based testing using multiple spike-jittering schemes, and (2) an analytical test based on Marchenko–Pastur Random Matrix Theory (RMT) [@anderson2010random; @safavi2023uncovering].
