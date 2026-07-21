@@ -31,9 +31,9 @@ from pygpla.simulations import simulate_transient_locked
 
 DPI = 600
 PANEL_LABEL_SIZE = 14
-TITLE_SIZE = 9
-AXIS_LABEL_SIZE = 8
-TICK_LABEL_SIZE = 7
+TITLE_SIZE = 9.5
+AXIS_LABEL_SIZE = 8.5
+TICK_LABEL_SIZE = 7.5
 SAVE_FORMATS = ("png", "pdf", "svg", "eps")
 
 
@@ -79,7 +79,8 @@ def _polar_spkvec(ax, spk_vec: np.ndarray, title: str = "", color="red"):
     ax.set_thetagrids(np.arange(0, 360, 45))
     ax.grid(True, color="0.82", linewidth=0.45)
     ax.tick_params(labelsize=TICK_LABEL_SIZE, pad=1)
-    ax.set_title(title, fontsize=TITLE_SIZE, pad=8)
+    if title:
+        ax.set_title(title, fontsize=TITLE_SIZE, pad=4)
 
 
 def _bandpass_and_analytic(
@@ -275,7 +276,7 @@ def main():
         lfp_examples.append(lfp_real[0, :, 0])
         spike_rasters.append(spikeTrains_raw[0])
 
-    fig = plt.figure(figsize=(7.2, 8.2))
+    fig = plt.figure(figsize=(7.2, 6.6))
 
     model_colors = ["#2E8B57", "#DAA520", "#CD853F", "#708090"]
 
@@ -317,10 +318,12 @@ def main():
         if spine in ax2.spines:
             ax2.spines[spine].set_visible(False)
 
+    model_axes = []
     for i, case in enumerate(cases):
         row = i + 2
 
         ax_model = plt.subplot(5, 3, (row - 1) * 3 + 1)
+        model_axes.append(ax_model)
         _plot_model_schematic(ax_model, i + 1)
         ax_model.set_title(f"{case['name']}", fontsize=TITLE_SIZE, fontweight="bold")
 
@@ -352,35 +355,14 @@ def main():
 
         ax_combined.set_ylabel("LFP Amplitude")
         ax_combined.set_xlabel("Time (s)")
-        ax_combined.set_title("LFP + spike trains")
+        if i == 0:
+            ax_combined.set_title("LFP + spike trains")
         for spine in ("top", "right"):
             if spine in ax_combined.spines:
                 ax_combined.spines[spine].set_visible(False)
 
         ax_polar = plt.subplot(5, 3, (row - 1) * 3 + 3, projection="polar")
-        _polar_spkvec(ax_polar, spk_vecs[i], title="Spike vector", color="red")
-
-
-    label_positions = [
-        (0.02, 0.92, "A"),
-        (0.67, 0.92, "B"),
-        (0.02, 0.75, "C"),
-        (0.02, 0.58, "D"),
-        (0.02, 0.41, "E"),
-        (0.02, 0.24, "F"),
-    ]
-
-    for x_pos, y_pos, label in label_positions:
-        fig.text(
-            x_pos,
-            y_pos,
-            label,
-            fontsize=PANEL_LABEL_SIZE,
-            fontweight="bold",
-            ha="left",
-            va="top",
-            color="black",
-        )
+        _polar_spkvec(ax_polar, spk_vecs[i], color="red")
 
     if len(cases) >= 3:
         cax = fig.add_axes([0.15, 0.02, 0.3, 0.02])
@@ -394,8 +376,21 @@ def main():
         cbar.ax.tick_params(labelsize=TICK_LABEL_SIZE, width=0.8, length=2.5)
 
     fig.subplots_adjust(
-        left=0.08, right=0.97, top=0.9, bottom=0.08, hspace=1.0, wspace=0.65
+        left=0.08, right=0.97, top=0.94, bottom=0.10, hspace=0.62, wspace=0.60
     )
+
+    for ax, label in zip([ax1, ax2, *model_axes], "ABCDEF"):
+        position = ax.get_position()
+        fig.text(
+            max(0.01, position.x0 - 0.055),
+            min(0.985, position.y1 + 0.018),
+            label,
+            fontsize=PANEL_LABEL_SIZE,
+            fontweight="bold",
+            ha="left",
+            va="top",
+            color="black",
+        )
 
     figures_dir = Path(__file__).resolve().parent
     figures_dir.mkdir(parents=True, exist_ok=True)
