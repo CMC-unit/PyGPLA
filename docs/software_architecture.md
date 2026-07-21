@@ -110,9 +110,12 @@ This keeps the numerical path explicit and lightweight:
 The package assumes:
 
 - spikes as trial list of `(units, samples)` arrays
-- analytic LFP as `(channels, samples, trials)` complex array
+- preferably an analytic LFP as `(channels, samples, trials)` complex array
+- alternatively, phase angles in radians as a real array of the same shape
 
-These contracts are enforced in preprocessing and validation utilities.
+Raw LFP voltage must be converted to the desired frequency-specific analytic signal upstream.
+The public API warns when it receives real input so that raw voltage is not silently confused
+with the supported phase-angle representation.
 
 ### Deterministic and Stochastic Paths
 

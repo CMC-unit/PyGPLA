@@ -24,7 +24,10 @@ pip install -e .[docs]
 ## Data expectations
 
 - **Spike trains**: list of arrays shaped `(units, samples)` per trial, binary or counts.
-- **LFP analytic signal**: complex array shaped `(channels, samples, trials)`; use a bandpass + Hilbert transform upstream.
+- **LFP analytic signal (preferred)**: complex array shaped `(channels, samples, trials)`;
+  use a bandpass filter and Hilbert transform upstream when starting from raw LFP voltage.
+- **LFP phase representation (supported)**: real array of the same shape containing phase
+  angles in radians. Real input triggers a warning because it is not interpreted as raw voltage.
 - **Sampling**: spike and LFP sample counts must match within each trial; supply `sampling_frequency` when using jitter surrogates.
 
 ## Minimal example
@@ -64,6 +67,9 @@ print("Spike vector shape:", result.spike_vector.shape)
 - **Spike-jitter surrogates**: `stats_config={"testType": "spike-jittering", "nJtr": 200, "jitterType": "interval-jittering", "jitterWinWidth": 0.05, "alphaValue": 0.05, "spkSF": sampling_rate}`; supports interval, ISI-preserved, group-preserved, and population jittering.
 
 ## Preprocessing knobs
+
+These options prepare an analytic-signal or phase input for GPLA; they do not bandpass-filter
+raw LFP voltage or compute its Hilbert transform.
 
 - `plvNrmlzMethed`: `nSpk`, `nSpk-square-root` (default), or `var1_theoretical`.
 - `flag_whitening`: 0 (off), 1/2 for PCA whitening variants; optionally set `PreprocessingConfig.whitening.variance_proportion`.
