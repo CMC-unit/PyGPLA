@@ -70,7 +70,7 @@ The package supports two normalization modes for the coupling matrix: PLV-type n
 
 We illustrate PyGPLA on synthetic transient-coupling simulations generated with the script `paper/figures/figure2.py`. As shown in \autoref{fig:gpla_results}, the figure compares four coupling models and reports their recovered gPLV values, together with representative LFP and spike-train windows and the associated spike-vector structure.
 
-![Illustrative PyGPLA simulation example produced by `paper/figures/figure2.py`. Panel A shows an LFP trace with the analysis window. Panel B shows gPLV values across four simulated coupling models (M1-M4). Panels C-F display, for each model, a schematic, LFP plus spike-train segment, and the recovered spike vector in polar coordinates.](figures/figure2_python.png){#fig:gpla_results}
+![Illustrative PyGPLA simulation. (A) LFP analysis window. (B) gPLV across models M1-M4. (C-F) Model schematics, LFP and spikes, and recovered spike vectors.](figures/figure2_python.png){#fig:gpla_results width="70%"}
 
 Code snippets and detailed instructions for reproducing these results are available in the package documentation and example scripts in the repository.
 
