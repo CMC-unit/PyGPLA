@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import warnings
-from dataclasses import asdict, dataclass, is_dataclass
+from dataclasses import dataclass
 from typing import Any, Dict, Optional, Union
 
 import numpy as np
@@ -59,8 +59,19 @@ def _stats_config_to_dict(
         return None
     if isinstance(stats_config, dict):
         return stats_config
-    if is_dataclass(stats_config):
-        return asdict(stats_config)
+    if isinstance(stats_config, StatTestConfig):
+        legacy_config = dict(stats_config.additional_params)
+        legacy_config.update(
+            {
+                "testType": stats_config.test_type,
+                "nJtr": stats_config.n_surrogates,
+                "jitterWinWidth": stats_config.jitter_window_width,
+                "spkSF": stats_config.sampling_frequency,
+                "jitterType": stats_config.jitter_type,
+                "alphaValue": stats_config.alpha,
+            }
+        )
+        return legacy_config
     raise TypeError("stats_config must be a dict, StatTestConfig, or None.")
 
 
@@ -153,6 +164,8 @@ def gpla(
             stacklevel=2,
         )
 
+    stat_dict = _stats_config_to_dict(stats_config)
+
     (
         spikeTrains_allTrLong,
         lfpPhases_allTrLong,
@@ -167,7 +180,7 @@ def gpla(
         unitSubset=unitSubset,
         temporalWindow=temporalWindow,
         flag_origDimEigVec=flag_origDimEigVec,
-        statTestInfo=stats_config,
+        statTestInfo=stat_dict,
         iSV=iSV,
         checkSameElecStuff_flag=0,
         plvNrmlzMethed=plvNrmlzMethed,
@@ -186,8 +199,6 @@ def gpla(
                 sameElecCheckInfo["spkU_lfpCh_cnvrtTabel"] = tbl[selectedUnits, :]
     else:
         sameElecCheckInfo = None
-
-    stat_dict = _stats_config_to_dict(stats_config)
 
     (
         gPLV,
