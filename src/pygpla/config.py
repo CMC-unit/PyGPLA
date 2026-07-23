@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Dict, Optional, Sequence, Tuple, Union
+from typing import Any, Dict, Optional, Sequence, Tuple, Union
 
 import numpy as np
 
@@ -37,7 +37,12 @@ class PreprocessingConfig:
 
 @dataclass(slots=True)
 class StatTestConfig:
-    """Statistical testing controls for the GPLA pipeline."""
+    """Statistical testing controls for the GPLA pipeline.
+
+    ``additional_params`` accepts specialized legacy runner options not represented
+    by named fields, such as ``rngSeed`` or ``SVspectrumStatsType``. Named fields
+    take precedence if the same legacy key is also present in ``additional_params``.
+    """
 
     test_type: str = "RMT-based"
     n_surrogates: int = 0
@@ -45,7 +50,7 @@ class StatTestConfig:
     sampling_frequency: float = 1.0
     jitter_type: str = "interval-jittering"
     alpha: float = 0.05
-    additional_params: Dict[str, ArrayLike] = field(default_factory=dict)
+    additional_params: Dict[str, Any] = field(default_factory=dict)
 
 
 def validate_spike_trains(spike_trains: Sequence[np.ndarray]) -> None:
