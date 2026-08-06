@@ -6,7 +6,6 @@ tags:
   - spike-field coupling
   - local field potential
   - multivariate analysis
-  - singular value decomposition
 authors:
   - name: Amir Khani
     orcid: 0009-0008-8042-9590
@@ -16,7 +15,6 @@ authors:
     affiliation: "3, 4"
   - name: Shervin Safavi
     orcid: 0000-0002-2868-530X
-    corresponding: true
     affiliation: "5, 6"
 affiliations:
   - name: Donders Institute for Brain, Cognition, and Behaviour, Radboud University, Nijmegen, Netherlands
@@ -35,7 +33,7 @@ affiliations:
     index: 6
     ror: "026nmvv73"
 
-date: "22 March 2026"
+date: "06 August 2026"
 bibliography: paper.bib
 repository: "https://github.com/CMC-lab/PyGPLA"
 crossref: true
@@ -54,7 +52,7 @@ Neural recordings are becoming increasingly high-dimensional and multimodal, dem
 
 However, commonly used spike-LFP coupling measures are pairwise, making them suboptimal for modern multichannel recordings [@zeitler2006assessing; @vinck2010pairwise; @vinck2012improved; @jiang2015measuring; @li2016unbiased; @zarei2018introducing]. As modern electrophysiological techniques allow simultaneous recordings from hundreds or even thousands of sites, pairwise analyses generate high-dimensional covariance matrices whose size grows rapidly with the number of channels, limiting interpretable extraction of large-scale collective dynamics [@dickey2009single; @jun2017fully; @juavinett2019chronically; @buzsaki2004large].
 
-GPLA was developed to address these challenges by providing an efficient multivariate framework together with statistical routines [@safavi2021univariate] for characterizing spike-LFP coupling at the population level [@safavi2023uncovering]. However, the original algorithm was implemented in MATLAB, limiting its accessibility. PyGPLA bridges this gap as an open-source Python implementation, aligning with the extensive use of Python in neuroscience as solidified by libraries such as MNE-Python [@GramfortEtAl2013a], Nilearn [@Nilearn], and TranCIT [@Nouri2025].
+GPLA was developed to address these challenges by providing an efficient multivariate framework together with statistical routines [@safavi2021univariate] for characterizing spike-LFP coupling at the population level [@safavi2023uncovering]. However, the original algorithm was implemented in MATLAB, limiting its accessibility. PyGPLA bridges this gap as an open-source Python implementation, Aligning with the extensive use of Python in neuroscience [@GramfortEtAl2013a; @behrad2025fast; @GramfortEtAl2013a; @Nouri2025; @zeraati2022flexible; @muller2015python; @peirce2009generating; @ince2009python; @krause2014expyriment; @tennoe2018uncertainpy; @freeman2015open; @akam2022open; @makowski2021neurokit2; @goodman2008brian; @viejo2023pynapple].
 
 Existing spike–field coupling methods - including the phase-locking value (PLV), pairwise phase consistency (PPC) [@vinck2010pairwise], and spike-field coherence - operate on individual spike–LFP channel pairs. While informative for small-scale recordings, these pairwise approaches do not directly capture the population-level structure of coupling, which is of paramount importance for recordings with modern high-density probes. GPLA addresses this gap by providing a multivariate method that summarizes all spike–field interactions simultaneously, analogous to how multivariate statistical methods such as principal component analysis (PCA) summarize covariance structure. To our knowledge, no other Python package implements this multivariate approach to spike–field coupling analysis.
 
@@ -101,12 +99,7 @@ GPLA has been evaluated in published simulations, biophysical network models, an
 
 ## AI usage disclosure
 
-Generative artificial intelligence (AI) tools were used to assist with drafting
-documentation and portions of this paper, and with refactoring code for style.
-All AI-assisted output was reviewed, tested, and
-validated by the authors, who take full responsibility for the correctness of the
-software and the content of this paper. The scientific method, algorithmic design,
-and numerical implementation of GPLA were carried out by the authors.
+Generative artificial intelligence (AI) tools were used to assist with drafting documentation and portions of this paper, and with refactoring code for style. All AI-assisted output was reviewed, tested, and validated by the authors, who take full responsibility for the correctness of the software and the content of this paper. The scientific method, algorithmic design, and numerical implementation of GPLA were carried out by the authors.
 
 ## Acknowledgments
 
