@@ -15,7 +15,8 @@ authors:
     affiliation: "3, 4"
   - name: Shervin Safavi
     orcid: 0000-0002-2868-530X
-    affiliation: "5, 6"
+    corresponding: true
+    affiliation: "2, 3"
 affiliations:
   - name: Donders Institute for Brain, Cognition, and Behaviour, Radboud University, Nijmegen, Netherlands
     index: 1
@@ -33,7 +34,7 @@ affiliations:
     index: 6
     ror: "026nmvv73"
 
-date: "06 August 2026"
+date: "2026-03-22"
 bibliography: paper.bib
 repository: "https://github.com/CMC-lab/PyGPLA"
 crossref: true
@@ -85,21 +86,17 @@ We illustrate PyGPLA on synthetic transient-coupling simulations generated with 
 
 Code snippets and detailed instructions for reproducing these results are available in the package documentation and example scripts in the repository.
 
-## Software design
+## Implementation details
 
-PyGPLA uses a function-oriented, layered design that separates the main stages of the analysis while providing a unified high-level workflow. The high-level `gpla()` function coordinates data preparation, GPLA decomposition, and optional statistical testing, returning the results and relevant bookkeeping in a single `GPLAResult` object. The underlying operations—coupling-matrix construction, SVD factorization, whitening, jitter generation, and simulation—remain independently accessible. This design provides a concise default workflow while allowing researchers to inspect, test, or replace individual methodological stages. Automated tests validate these independently accessible numerical components.
+The `pygpla` package is distributed under the BSD-2-Clause license. PyGPLA follows a layered architecture separating preprocessing (`pygpla.preprocessing`), core computation (`pygpla.core`), statistical testing (`pygpla.stats`), simulation utilities (`pygpla.simulations`), and configuration (`pygpla.config`). The high-level API (`pygpla.api.gpla`) orchestrates the full pipeline in a single call, keeping default usage compact while preserving access to lower-level components for advanced analyses. The package is built on NumPy [@harris2020array] and SciPy [@virtanen2020fundamental], and includes a `pytest` test suite with continuous integration via GitHub Actions.
 
-PyGPLA accepts standard NumPy arrays rather than requiring a package-specific data container, facilitating integration with existing electrophysiology workflows. Frequency selection and conversion of raw LFP voltage to an analytic signal are intentionally left upstream because these operations require experiment-specific filtering choices. PyGPLA therefore operates on a frequency-specific complex analytic signal or phase representation and warns when real-valued input is supplied.
+## Use of generative AI
 
-Several numerical and interface conventions preserve continuity with the original MATLAB implementation, facilitating validation against the reference implementation and migration of existing GPLA analyses. These include its normalization alternatives, phase convention, reduced-rank whitening methods, and selected legacy parameter names. Optional PCA-based whitening reduces correlations among LFP channels, while an unwhitening operator maps the resulting coupling modes back to the original channel coordinates. Statistical inference is separated from the deterministic decomposition, allowing users to choose between a computationally inexpensive analytical RMT-based decision and more expensive spike-jitter surrogate tests. The core package depends only on NumPy; SciPy is provided as an optional dependency for documented simulation and signal-processing workflows.
-
-## Research impact statement
-
-GPLA has been evaluated in published simulations, biophysical network models, and multielectrode recordings, where it revealed population-level spike–field coupling patterns related to properties of the underlying neural circuits [@safavi2023uncovering]. PyGPLA transfers this established methodology from MATLAB research code into an installable, open-source Python package. To our knowledge, it is the first Python implementation that jointly decomposes the complete spike–field coupling matrix. Its immediate research contribution is therefore to make population-level GPLA available to researchers using Python-based electrophysiology workflows. Because PyGPLA is newly released, broader external adoption and independent applications remain to be established.
-
-## AI usage disclosure
-
-Generative artificial intelligence (AI) tools were used to assist with drafting documentation and portions of this paper, and with refactoring code for style. All AI-assisted output was reviewed, tested, and validated by the authors, who take full responsibility for the correctness of the software and the content of this paper. The scientific method, algorithmic design, and numerical implementation of GPLA were carried out by the authors.
+Generative AI tools were used only to assist with drafting documentation and
+refactoring code for style. All AI-assisted output was reviewed, tested, and
+validated by the authors, who take full responsibility for the correctness of the
+software and the content of this paper. The scientific method, algorithmic design,
+and numerical implementation of GPLA were carried out by the authors.
 
 ## Acknowledgments
 
