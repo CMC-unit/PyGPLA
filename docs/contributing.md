@@ -43,7 +43,7 @@ If it’s a larger change, opening an issue first is usually better than startin
 ### Clone + environment
 
 ```bash
-git clone https://github.com/CMC-lab/PyGPLA.git
+git clone https://github.com/CMC-unit/PyGPLA.git
 cd PyGPLA
 python -m venv .venv
 source .venv/bin/activate
