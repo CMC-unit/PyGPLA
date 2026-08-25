@@ -39,7 +39,7 @@ pip install pygpla
 ### From source
 
 ```bash
-git clone https://github.com/CMC-lab/PyGPLA.git
+git clone https://github.com/CMC-unit/PyGPLA.git
 cd PyGPLA
 pip install -e .
 ```
