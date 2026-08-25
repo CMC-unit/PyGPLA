@@ -36,7 +36,7 @@ affiliations:
 
 date: "22 March 2026"
 bibliography: paper.bib
-repository: "https://github.com/CMC-lab/PyGPLA"
+repository: "https://github.com/CMC-unit/PyGPLA"
 crossref: true
 url: "https://pygpla.readthedocs.io/en/latest/"
 
@@ -45,7 +45,6 @@ url: "https://pygpla.readthedocs.io/en/latest/"
 ## Summary
 
 PyGPLA is a Python implementation of Generalized Phase Locking Analysis (GPLA) for multivariate analysis of coupling between spikes and local field potentials (LFPs) [@safavi2023uncovering]. For a given frequency, GPLA constructs a complex coupling matrix $\hat{C}(f) \in \mathbb{C}^{N_c \times N_u}$ between LFP channels ($N_c$) and spike units ($N_u$), then applies singular value decomposition (SVD) to reduce the dimensionality of data. The leading singular value summarizes population-level coupling strength, while the corresponding singular vectors describe dominant LFP and spike coupling modes. PyGPLA accepts a user-provided frequency-specific analytic LFP signal or phase representation and provides data selection, optional whitening and normalization, coupling-matrix construction, SVD-based decomposition, and statistical significance testing [@safavi2021univariate].
-
 
 ## Statement of need
 
@@ -100,11 +99,29 @@ The GPLA methodology has been evaluated in published simulations, biophysical ne
 
 ## AI usage disclosure
 
-Generative AI tools were used only to assist with drafting documentation and
-refactoring code for style. All AI-assisted output was reviewed, tested, and
-validated by the authors, who take full responsibility for the correctness of the
-software and the content of this paper. The scientific method, algorithmic design,
-and numerical implementation of GPLA were carried out by the authors.
+Over the course of PyGPLA’s development, the authors used OpenAI GPT-family
+models through ChatGPT and OpenAI Codex, including models from the GPT-5
+family. This assistance occurred over an extended period during which the
+available models were updated; consequently, exact model snapshots and version
+identifiers were not recorded for every interaction.
+
+The models were used to assist with porting selected MATLAB scripts to Python,
+refactoring code, drafting and restructuring documentation, and conducting
+language editing and grammatical review of the manuscript. AI-generated outputs
+were treated as preliminary suggestions rather than authoritative
+implementations.
+
+All AI-assisted code and text were reviewed and edited by the authors.
+Translated code was reviewed against the original MATLAB implementation and
+the published mathematical description of GPLA. Its behavior was evaluated
+through tests, reproducible simulations, and manual inspection. As an
+additional human-led validation step, the authors reproduced Figure 2 from the
+original GPLA publication using PyGPLA and compared the resulting coupling
+patterns with the published results, providing a further check of the ported
+implementation. The authors made the scientific, architectural, and
+methodological decisions and take full responsibility for the accuracy,
+originality, licensing, and integrity of the software, documentation, and
+paper.
 
 ## Acknowledgments
 
