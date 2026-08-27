@@ -70,7 +70,7 @@ PyGPLA provides a comprehensive solution for multivariate spike-field coupling a
 - **LFP input and data preparation:** PyGPLA accepts a user-provided complex analytic LFP signal or a real phase representation in radians. Raw LFP voltage must first be converted upstream to the desired frequency-specific analytic signal, for example through band-pass filtering followed by a Hilbert transform [@chavez2006proper]. PyGPLA then supports temporal and unit selection, optional channel-wise normalization, and optional reduced-rank whitening to decorrelate channels while avoiding noise amplification [@safavi2023uncovering].
 - **Coupling-matrix construction:** Assembly of the complex-valued coupling matrix $\widehat{\mathbf{C}}(f) \in \mathbb{C}^{N_c \times N_u}$, where each entry sums the analytic LFP evaluated at all spike times of a given unit.
 - **SVD-based decomposition:** Extraction of the generalized phase locking value or gPLV (the leading singular value) and associated LFP and spike spatial vectors, with rotational phase alignment, unwhitening of LFP vectors, and spike-vector rescaling.
-- **Statistical testing:** Significance assessment via two complementary approaches: (1) surrogate-based testing using multiple spike-jittering schemes, and (2) an analytical test based on Marchenko–Pastur Random Matrix Theory (RMT) [@anderson2010random; @safavi2023uncovering].
+- **Statistical testing:** Significance assessment via two complementary approaches: (1) surrogate-based testing using multiple spike-jittering schemes, and (2) an analytical test based on Marchenko–Pastur Random Matrix Theory (RMT) [@anderson2010random; @safavi2021univariate].
 - **Simulation tools:** Synthetic data generators for phase-locked and transient-coupling scenarios, supporting reproducibility and method validation.
 
 ### Normalization options
@@ -125,6 +125,6 @@ paper.
 
 ## Acknowledgments
 
-We acknowledge contributions from collaborators who provided feedback during the development of pyGPLA. S.S. acknowledges support from the Max Planck Society and an add-on fellowship from the Joachim Herz Foundation. C.B. acknowledges support from the Federal Ministry of Research, Technology and Space (Bundesministerium für Forschung, Technologie und Raumfahrt; BMFTR) as part of the German Center for Child and Adolescent Health (DZKJ) under funding code 01GL2405B.
+We acknowledge contributions from collaborators who provided feedback during the development of PyGPLA. S.S. acknowledges support from the Max Planck Society and an add-on fellowship from the Joachim Herz Foundation. C.B. acknowledges support from the Federal Ministry of Research, Technology and Space (Bundesministerium für Forschung, Technologie und Raumfahrt; BMFTR) as part of the German Center for Child and Adolescent Health (DZKJ) under funding code 01GL2405B.
 
 ## References
