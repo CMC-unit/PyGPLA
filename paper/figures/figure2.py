@@ -13,18 +13,20 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, List, Tuple
 
-import matplotlib.pyplot as plt
-import numpy as np
-from scipy.signal import butter, filtfilt, hilbert
-
-ROOT = Path(__file__).resolve().parents[1]
-SRC = ROOT / "src"
+FIGURES_DIR = Path(__file__).resolve().parent
+PAPER_DIR = FIGURES_DIR.parent
+REPO_ROOT = PAPER_DIR.parent
+SRC = REPO_ROOT / "src"
 if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
-MPL_CACHE = ROOT / ".matplotlib_cache"
+MPL_CACHE = PAPER_DIR / ".matplotlib_cache"
 MPL_CACHE.mkdir(parents=True, exist_ok=True)
 os.environ.setdefault("MPLCONFIGDIR", str(MPL_CACHE))
+
+import matplotlib.pyplot as plt
+import numpy as np
+from scipy.signal import butter, filtfilt, hilbert
 
 from pygpla.api import gpla
 from pygpla.simulations import simulate_transient_locked
@@ -392,9 +394,8 @@ def main():
             color="black",
         )
 
-    figures_dir = Path(__file__).resolve().parent
-    figures_dir.mkdir(parents=True, exist_ok=True)
-    basepath = figures_dir / "figure2_python"
+    FIGURES_DIR.mkdir(parents=True, exist_ok=True)
+    basepath = FIGURES_DIR / "figure2_python"
     for ext in SAVE_FORMATS:
         outpath = f"{basepath}.{ext}"
         plt.savefig(outpath, dpi=DPI, bbox_inches="tight")
