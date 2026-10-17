@@ -48,7 +48,7 @@ figures = [
 
 [project.urls]
 Repository = "https://github.com/CMC-unit/PyGPLA"
-Documentation = "https://github.com/CMC-unit/PyGPLA#readme"
+Documentation = "https://pygpla.readthedocs.io/en/latest/"
 
 [tool.hatch.version]
 path = "src/pygpla/_version.py"

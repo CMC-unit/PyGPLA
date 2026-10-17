@@ -130,6 +130,8 @@ This generates `paper/figures/figure2_python.png` (plus PDF/SVG/EPS exports).
 
 ## Documentation
 
+Read the full documentation online at [PyGPLA Documentation](https://pygpla.readthedocs.io/en/latest/).
+
 Build the docs locally:
 
 ```bash
